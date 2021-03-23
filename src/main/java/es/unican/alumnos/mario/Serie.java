@@ -5,13 +5,13 @@ import java.util.List;
 public class Serie {
 
 
-	private int idSerie;
-	private String nombreSerie;
-	private String sinopsis;
-	private String[] creadores;
-	private String[] actores;
-	private List<Temporada> temporadas;
-	private CategoriaSerie categoria;
+	protected int idSerie;
+	public String nombreSerie;
+	public String sinopsis;
+	public String[] creadores;
+	public String[] actores;
+	public List<Temporada> temporadas;
+	public Categoria categoria;
 	
 	public int getIdSerie() {
 		return idSerie;
