@@ -1,5 +1,9 @@
 package es.unican.alumnos.mario;
 
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Usuario {
@@ -12,6 +16,21 @@ public class Usuario {
 	public List<Usuario> amigos;
 	public RepertorioPersonal repertorioUsuario;
 	public List<Serie> seriesNoMarcadas;
+	
+	
+	
+	public Usuario(String nombre, String contraseña, String cuentaBancaria, float cuotaFija,
+			List<Usuario> amigos, List<Serie> seriesNoMarcadas) {
+
+		setNombre(nombre);
+		setContraseña(contraseña);
+		setCuentaBancaria(cuentaBancaria);
+		setCuotaFija(cuotaFija);
+		setAmigos(amigos);
+		setRepertorioUsuario(new RepertorioPersonal(this));
+		setSeriesNoMarcadas(seriesNoMarcadas);
+	}
+	
 	
 	public float getCuotaFija() {
 		return cuotaFija;
@@ -62,5 +81,51 @@ public class Usuario {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 	
+	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {
+		cargos.get(cargos.size()-1).anhadirCargo(serie, temporada, capitulo);
+	}
+	
+	public void notificarAmigos() {}
+	
+	public Cargo verCargo(Date fechaCargo) {
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal1.setTime(fechaCargo);
+		for (Cargo c : cargos) {
+			cal2.setTime(c.getFechaCargo());
+			if(cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	public void agregarSerie(int idSerie) {
+		repertorioUsuario.agregarSerie(idSerie);
+	}
+	
+	public List<Serie> verSeriesOrdenadas(char letraInicial){
+		List<Serie> seriesLetra = new LinkedList<Serie>();
+		for(Serie s: seriesNoMarcadas) {
+			if (s.getNombreSerie().charAt(0) == letraInicial) {
+				seriesLetra.add(s);
+			}
+		}
+		
+		Collections.sort(seriesLetra);
+		return seriesLetra;
+		
+	}
+	
+	public Serie verSeriesOrdenadas(String nombreSerie){
+		for(Serie s: seriesNoMarcadas) {
+			if (s.getNombreSerie().equals(nombreSerie)) {
+				return s;
+			}
+		}
+		
+		return null;
+		
+	}
 	
 }

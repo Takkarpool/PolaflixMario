@@ -9,9 +9,16 @@ public class CapituloCargo {
 	public int numTemporada;
 	public int numCapitulo;
 	public float cargo;
-	
-	
-	
+
+
+	public CapituloCargo(Date fechaVisualizado, String nombreSerie, int numTemporada, int numCapitulo, float cargo) {
+		setFechaVisualizado(fechaVisualizado);
+		setNombreSerie(nombreSerie);
+		setNumTemporada(numTemporada);
+		setNumCapitulo(numCapitulo);
+		setCargo(cargo);
+	}
+
 	
 	public Date getFechaVisualizado() {
 		return fechaVisualizado;
@@ -43,5 +50,7 @@ public class CapituloCargo {
 	public void setCargo(float cargo) {
 		this.cargo = cargo;
 	}
+
+	
 	
 }

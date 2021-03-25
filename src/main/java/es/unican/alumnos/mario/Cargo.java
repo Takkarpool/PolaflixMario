@@ -37,4 +37,10 @@ public class Cargo {
 		this.listaCapitulosVistos = listaCapitulosVistos;
 	}	
 	
+	
+	public void anhadirCargo(Serie serie, Temporada temporada, Capitulo capitulo) {
+		listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
+				capitulo.getNumero(), serie.getCategoria().getCoste()));
+	}
+	
 }
