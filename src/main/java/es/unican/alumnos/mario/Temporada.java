@@ -35,12 +35,12 @@ public class Temporada  implements Comparable<Temporada>{
 	
 	@Override
 	public int compareTo(Temporada u) {
-	    if (this.numTemporada < 0 || u.numTemporada < 0) {
+	    if (this.numTemporada < 0 || u.getNumTemporada() < 0) {
 	      return 0;
 	    }
-	    if(this.numTemporada < u.numTemporada) {
+	    if(this.numTemporada < u.getNumTemporada()) {
 	    	return -1;
-	    }else if(this.numTemporada > u.numTemporada) {
+	    }else if(this.numTemporada > u.getNumTemporada()) {
 	    	return 1;
 	    }else{
 	    	return 0;

@@ -45,9 +45,6 @@ public class Capitulo implements Comparable<Capitulo>{
 		return numero;
 	}
 	
-	
-	
-	
 	@Override
 	public int compareTo(Capitulo u) {
 	    if (this.numero < 0 || u.numero < 0) {
@@ -60,6 +57,6 @@ public class Capitulo implements Comparable<Capitulo>{
 	    }else{
 	    	return 0;
 	    }
-	  }
+	 }
 	
 }

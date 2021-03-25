@@ -13,7 +13,6 @@ public class Usuario {
 	public String cuentaBancaria;
 	public float cuotaFija;
 	public List<Cargo> cargos;
-	public List<Usuario> amigos;
 	public RepertorioPersonal repertorioUsuario;
 	public List<Serie> seriesNoMarcadas;
 	
@@ -26,7 +25,6 @@ public class Usuario {
 		setContraseña(contraseña);
 		setCuentaBancaria(cuentaBancaria);
 		setCuotaFija(cuotaFija);
-		setAmigos(amigos);
 		setRepertorioUsuario(new RepertorioPersonal(this));
 		setSeriesNoMarcadas(seriesNoMarcadas);
 	}
@@ -43,12 +41,6 @@ public class Usuario {
 	}
 	public void setCargos(List<Cargo> cargos) {
 		this.cargos = cargos;
-	}
-	public List<Usuario> getAmigos() {
-		return amigos;
-	}
-	public void setAmigos(List<Usuario> amigos) {
-		this.amigos = amigos;
 	}
 	public RepertorioPersonal getRepertorioUsuario() {
 		return repertorioUsuario;
@@ -84,8 +76,6 @@ public class Usuario {
 	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {
 		cargos.get(cargos.size()-1).anhadirCargo(serie, temporada, capitulo);
 	}
-	
-	public void notificarAmigos() {}
 	
 	public Cargo verCargo(Date fechaCargo) {
 		Calendar cal1 = Calendar.getInstance();
@@ -127,5 +117,34 @@ public class Usuario {
 		return null;
 		
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.getNombre()))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

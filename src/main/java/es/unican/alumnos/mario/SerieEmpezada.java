@@ -27,9 +27,7 @@ public class SerieEmpezada extends Serie{
 	}
 
 	public Capitulo verCapitulo(int numTemporada, int numCapitulo) {
-		
 		return temporadas.get(numTemporada).verCapitulo(numCapitulo);
-		
 	}
 
 

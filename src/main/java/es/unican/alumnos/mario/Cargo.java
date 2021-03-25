@@ -1,5 +1,6 @@
 package es.unican.alumnos.mario;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -39,8 +40,61 @@ public class Cargo {
 	
 	
 	public void anhadirCargo(Serie serie, Temporada temporada, Capitulo capitulo) {
-		listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
-				capitulo.getNumero(), serie.getCategoria().getCoste()));
+		boolean encontrado = false;
+		for(CapituloCargo c : listaCapitulosVistos) {
+			if (c.getNombreSerie().equals(serie.getNombreSerie()) 
+					&& c.getNumCapitulo() == capitulo.numero 
+					&& c.getNumTemporada() == temporada.getNumTemporada()) {
+				encontrado = true;
+				break;
+			}
+		}
+		if (!encontrado) {
+			listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
+					capitulo.getNumero(), serie.getCategoria().getCoste()));
+		}
+		
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fechaCargo == null) ? 0 : fechaCargo.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cargo other = (Cargo) obj;
+		if (fechaCargo == null) {
+			if (other.getFechaCargo() != null)
+				return false;
+		} else {
+			Calendar cal1 = Calendar.getInstance();
+			Calendar cal2 = Calendar.getInstance();
+			cal1.setTime(fechaCargo);
+			cal2.setTime(other.getFechaCargo());
+			if(cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)) {
+				return false;
+			}
+			if (usuario == null) {
+				if (other.getUsuario() != null)
+					return false;
+			} else if (!usuario.equals(other.usuario))
+				return false;
+		}
+		return true;
+			
+	}
+
+	
+	
 	
 }
