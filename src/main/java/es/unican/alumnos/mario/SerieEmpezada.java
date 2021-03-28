@@ -26,8 +26,8 @@ public class SerieEmpezada extends Serie{
 		this.ultimaTemporadaVista = ultimaTemporadaVista;
 	}
 
-	public Capitulo verCapitulo(int numTemporada, int numCapitulo) {
-		return temporadas.get(numTemporada).verCapitulo(numCapitulo);
+	public Capitulo verCapitulo(Temporada temporada, int numCapitulo) {
+		return temporada.verCapitulo(numCapitulo);
 	}
 
 

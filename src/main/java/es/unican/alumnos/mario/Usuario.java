@@ -1,9 +1,7 @@
 package es.unican.alumnos.mario;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Usuario {
@@ -90,32 +88,8 @@ public class Usuario {
 		return null;
 	}
 	
-	public void agregarSerie(int idSerie) {
-		repertorioUsuario.agregarSerie(idSerie);
-	}
-	
-	public List<Serie> verSeriesOrdenadas(char letraInicial){
-		List<Serie> seriesLetra = new LinkedList<Serie>();
-		for(Serie s: seriesNoMarcadas) {
-			if (s.getNombreSerie().charAt(0) == letraInicial) {
-				seriesLetra.add(s);
-			}
-		}
-		
-		Collections.sort(seriesLetra);
-		return seriesLetra;
-		
-	}
-	
-	public Serie verSeriesOrdenadas(String nombreSerie){
-		for(Serie s: seriesNoMarcadas) {
-			if (s.getNombreSerie().equals(nombreSerie)) {
-				return s;
-			}
-		}
-		
-		return null;
-		
+	public void agregarSerie(Serie serie) {
+		repertorioUsuario.agregarSerie(serie);
 	}
 
 

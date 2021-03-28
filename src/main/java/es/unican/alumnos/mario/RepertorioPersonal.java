@@ -1,6 +1,8 @@
 package es.unican.alumnos.mario;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RepertorioPersonal {
@@ -43,43 +45,45 @@ public class RepertorioPersonal {
 		this.seriesPendientes = seriesPendientes;
 	}
 	
-	public Capitulo verCapitulo(int idSerie, int numTemporada, int numCapitulo) {
+	public Capitulo verCapitulo(Serie serie, Temporada temporada, int numCapitulo) {
 		
 		for(SerieEmpezada s : this.seriesEmpezadas) {
-			if(s.getIdSerie() == idSerie){
-				Capitulo capituloVer = s.verCapitulo(numTemporada, numCapitulo);
-				return chequearFinalSerie(numTemporada, numCapitulo, s, capituloVer);
+			if(s.getIdSerie() == serie.getIdSerie()){
+				Capitulo capituloVer = s.verCapitulo(temporada, numCapitulo);
+				chequearFinalSerie(s, temporada, capituloVer);
+				return capituloVer;
+				
 			}
 		}
 		
 		for(SerieEmpezada s : this.seriesFinalizadas) {
-			if(s.getIdSerie() == idSerie){
-				Capitulo capituloVer = s.verCapitulo(numTemporada, numCapitulo);
-				usuario.anhadirCapituloVisto(s, s.getTemporadas().get(numTemporada), capituloVer);
+			if(s.getIdSerie() == serie.getIdSerie()){
+				Capitulo capituloVer = s.verCapitulo(temporada, numCapitulo);
+				usuario.anhadirCapituloVisto(s, s.getTemporadas().get(temporada.getNumTemporada()), capituloVer);
 				return capituloVer;
 			}
 		}
 		
 		for(Serie s : this.seriesPendientes) {
-			if(s.getIdSerie() == idSerie){
-				SerieEmpezada serie = new SerieEmpezada(s, numTemporada, numCapitulo);
-				seriesEmpezadas.add(serie);
-				seriesPendientes.remove(serie);
-				Capitulo capituloVer = serie.verCapitulo(numTemporada, numCapitulo);
-				return chequearFinalSerie(numTemporada, numCapitulo, serie, capituloVer);			
+			if(s.getIdSerie() == serie.getIdSerie()){
+				SerieEmpezada serieEmpezada = new SerieEmpezada(s, temporada.getNumTemporada(), numCapitulo);
+				seriesEmpezadas.add(serieEmpezada);
+				seriesPendientes.remove(s);
+				Capitulo capituloVer = serieEmpezada.verCapitulo(temporada, numCapitulo);
+				chequearFinalSerie(serieEmpezada, temporada, capituloVer);			
+				return capituloVer;
 			}
 		}
 		
 		throw new RuntimeException("Ver capitulo de serie no seleccionada por el usuario");
 	}
 	
-	private Capitulo chequearFinalSerie(int numTemporada, int numCapitulo, SerieEmpezada serie, Capitulo capituloVer) {
-		if(serie.getTemporadas().size()-1 == numTemporada && serie.getTemporadas().get(numTemporada).getCapitulos().size()-1 == numCapitulo) {
+	private void chequearFinalSerie(SerieEmpezada serie, Temporada temporada, Capitulo capitulo) {
+		if(serie.getTemporadas().size()-1 == temporada.getNumTemporada() && temporada.getCapitulos().size()-1 == capitulo.getNumero()) {
 			seriesFinalizadas.add(serie);
 			seriesEmpezadas.remove(serie);
 		}
-		usuario.anhadirCapituloVisto(serie, serie.getTemporadas().get(numTemporada), capituloVer);
-		return capituloVer;
+		usuario.anhadirCapituloVisto(serie, temporada, capitulo);
 	}
 	
 	public Serie seleccionarSerie (int idSerie) {
@@ -104,26 +108,44 @@ public class RepertorioPersonal {
 		return null;
 	}
 	
-	public void agregarSerie(int idSerie) {
-		for (Serie s: usuario.getSeriesNoMarcadas()) {
-			if (s.getIdSerie() == idSerie) {
-				seriesPendientes.add(s);
-			}
-		}
+	public void agregarSerie(Serie serie) {
+		seriesPendientes.add(serie);
 	}
 	
-	public boolean capituloVisto(int idSerie, int numTemporada, int numCapitulo) {
-		Serie serieCapitulo = seleccionarSerie(idSerie);
-		if (serieCapitulo instanceof SerieEmpezada) {
-			SerieEmpezada serieEmpezadaCapitulo = (SerieEmpezada) serieCapitulo;
-			if (numTemporada == serieEmpezadaCapitulo.getUltimaTemporadaVista() && numCapitulo == serieEmpezadaCapitulo.getUltimoCapituloVisto()) {
+	public boolean capituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {
+		if (serie instanceof SerieEmpezada) {
+			SerieEmpezada serieEmpezadaCapitulo = (SerieEmpezada) serie;
+			if (temporada.getNumTemporada() == serieEmpezadaCapitulo.getUltimaTemporadaVista() && capitulo.getNumero() == serieEmpezadaCapitulo.getUltimoCapituloVisto()) {
 				return true;
-			}else {
-				return false;
 			}
-		}else {
-			return false;
 		}
+		
+		return false;
+		
+	}
+	
+	public List<Serie> verSeriesOrdenadas(char letraInicial){
+		List<Serie> seriesLetra = new LinkedList<Serie>();
+		for(Serie s: usuario.getSeriesNoMarcadas()) {
+			if (s.getNombreSerie().charAt(0) == letraInicial) {
+				seriesLetra.add(s);
+			}
+		}
+		
+		Collections.sort(seriesLetra);
+		return seriesLetra;
+		
+	}
+	
+	public Serie buscarSerie(String nombreSerie){
+		for(Serie s: usuario.getSeriesNoMarcadas()) {
+			if (s.getNombreSerie().equals(nombreSerie)) {
+				return s;
+			}
+		}
+		
+		return null;
+		
 	}
 	
 }

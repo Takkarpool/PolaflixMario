@@ -9,13 +9,13 @@ public class Serie implements Comparable<Serie>{
 	protected int idSerie;
 	public String nombreSerie;
 	public String sinopsis;
-	public String[] creadores;
-	public String[] actores;
+	public Creador[] creadores;
+	public Actor[] actores;
 	public List<Temporada> temporadas;
 	public Categoria categoria;
 	
 	
-	public Serie(int idSerie, String nombreSerie, String sinopsis, String[] creadores, String[] actores,
+	public Serie(int idSerie, String nombreSerie, String sinopsis, Creador[] creadores, Actor[] actores,
 			List<Temporada> temporadas, Categoria categoria) {
 		setIdSerie(idSerie);
 		setNombreSerie(nombreSerie);
@@ -56,19 +56,20 @@ public class Serie implements Comparable<Serie>{
 	public void setSinopsis(String sinopsis) {
 		this.sinopsis = sinopsis;
 	}
-	public String[] getCreadores() {
+	
+	
+	public Creador[] getCreadores() {
 		return creadores;
 	}
-	public void setCreadores(String[] creadores) {
+	public void setCreadores(Creador[] creadores) {
 		this.creadores = creadores;
 	}
-	public String[] getActores() {
+	public Actor[] getActores() {
 		return actores;
 	}
-	public void setActores(String[] actores) {
+	public void setActores(Actor[] actores) {
 		this.actores = actores;
 	}
-	
 	public Temporada mostrarTemporada(int numTemporada) {
 		return this.temporadas.get(numTemporada - 1);
 	}
