@@ -1,4 +1,4 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

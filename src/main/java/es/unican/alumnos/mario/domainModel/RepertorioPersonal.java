@@ -1,15 +1,23 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class RepertorioPersonal {
-	
+	@OneToMany
 	public List<SerieEmpezada> seriesEmpezadas;
+	@OneToMany
 	public List<SerieEmpezada> seriesFinalizadas;
+	@OneToMany
 	public List<Serie> seriesPendientes;
+	@OneToOne(mappedBy = "usuario")
 	public Usuario usuario;
 	
 	public RepertorioPersonal(Usuario usuario) {

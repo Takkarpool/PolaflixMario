@@ -1,7 +1,10 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import java.util.Date;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class CapituloCargo {
 
 	public Date fechaVisualizado;

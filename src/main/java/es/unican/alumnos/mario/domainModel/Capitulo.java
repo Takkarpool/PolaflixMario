@@ -1,10 +1,20 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Capitulo implements Comparable<Capitulo>{
 
+	@Id
+	@GeneratedValue
+	protected int id;
 	public int numero;
 	public String titulo;
 	public String descripcion;
+	@Embedded
 	public Video videoCapitulo;
 	
 	

@@ -1,23 +1,38 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Serie implements Comparable<Serie>{
 
-
+	@Id
+	@GeneratedValue
 	protected int idSerie;
 	public String nombreSerie;
 	public String sinopsis;
+	@ElementCollection
 	public Creador[] creadores;
+	@ElementCollection
 	public Actor[] actores;
+	@OneToMany
 	public List<Temporada> temporadas;
+	@Embedded
 	public Categoria categoria;
 	
 	
-	public Serie(int idSerie, String nombreSerie, String sinopsis, Creador[] creadores, Actor[] actores,
+	public Serie(String nombreSerie, String sinopsis, Creador[] creadores, Actor[] actores,
 			List<Temporada> temporadas, Categoria categoria) {
-		setIdSerie(idSerie);
 		setNombreSerie(nombreSerie);
 		setSinopsis(sinopsis);
 		setCreadores(creadores);

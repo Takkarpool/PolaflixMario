@@ -1,4 +1,4 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 public class SerieEmpezada extends Serie{
 
@@ -6,7 +6,7 @@ public class SerieEmpezada extends Serie{
 	public int ultimaTemporadaVista;
 	
 	public SerieEmpezada(Serie serie, int ultimaTemporadaVista, int ultimoCapituloVisto) {
-		super(serie.getIdSerie(), serie.getNombreSerie(), serie.getSinopsis(), serie.getCreadores(), serie.getActores(), 
+		super(serie.getNombreSerie(), serie.getSinopsis(), serie.getCreadores(), serie.getActores(), 
 				serie.getTemporadas(), serie.getCategoria());
 		setUltimaTemporadaVista(ultimaTemporadaVista);
 		setUltimoCapituloVisto(ultimoCapituloVisto);

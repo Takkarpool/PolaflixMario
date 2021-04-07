@@ -1,17 +1,27 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Usuario {
 
+	@Id
 	public String nombre;
 	public String contraseña;
 	public String cuentaBancaria;
 	public float cuotaFija;
+	@OneToMany(mappedBy="usuario")
 	public List<Cargo> cargos;
+	@OneToOne
 	public RepertorioPersonal repertorioUsuario;
+	@OneToMany
 	public List<Serie> seriesNoMarcadas;
 	
 	

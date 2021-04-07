@@ -1,12 +1,22 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Temporada  implements Comparable<Temporada>{
 
+	@Id
+	@GeneratedValue
+	protected int id;
 	public int numTemporada;
+	@OneToMany
 	public List<Capitulo> capitulos;
 	
 	public Temporada(int numTemporada, List<Capitulo> capitulos) {

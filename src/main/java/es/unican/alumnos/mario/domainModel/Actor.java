@@ -1,5 +1,8 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Actor {
 
 	public String nombre;

@@ -1,14 +1,25 @@
-package es.unican.alumnos.mario;
+package es.unican.alumnos.mario.domainModel;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Cargo {
 
+	@Id
+	@GeneratedValue
+	protected int id;
+	@ManyToOne
 	public Usuario usuario;
 	public double cuotaFinal;
 	public Date fechaCargo;
+	@ManyToOne
 	public List<CapituloCargo>listaCapitulosVistos;
 	
 	
