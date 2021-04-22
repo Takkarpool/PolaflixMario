@@ -17,6 +17,7 @@ public class Capitulo implements Comparable<Capitulo>{
 	@Embedded
 	public Video videoCapitulo;
 	
+	public Capitulo() {}
 	
 	public Capitulo(int numero, String titulo, String descripcion, Video videoCapitulo) {
 		setNumero(numero);

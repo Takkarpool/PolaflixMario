@@ -4,10 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 
 @Entity
 public class Cargo {
@@ -15,13 +18,13 @@ public class Cargo {
 	@Id
 	@GeneratedValue
 	protected int id;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	public Usuario usuario;
 	public double cuotaFinal;
 	public Date fechaCargo;
-	@ManyToOne
+	@ElementCollection
+	@OrderColumn(name="listaCapitulosVistos")
 	public List<CapituloCargo>listaCapitulosVistos;
-	
 	
 	
 	public Usuario getUsuario() {

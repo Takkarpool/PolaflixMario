@@ -1,9 +1,14 @@
 package es.unican.alumnos.mario.domainModel;
 
+import javax.persistence.Entity;
+
+@Entity
 public class SerieEmpezada extends Serie{
 
 	public int ultimoCapituloVisto;
 	public int ultimaTemporadaVista;
+	
+	public SerieEmpezada() {}
 	
 	public SerieEmpezada(Serie serie, int ultimaTemporadaVista, int ultimoCapituloVisto) {
 		super(serie.getNombreSerie(), serie.getSinopsis(), serie.getCreadores(), serie.getActores(), 

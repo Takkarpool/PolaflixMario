@@ -13,6 +13,7 @@ public class CapituloCargo {
 	public int numCapitulo;
 	public float cargo;
 
+	public CapituloCargo() {}
 
 	public CapituloCargo(Date fechaVisualizado, String nombreSerie, int numTemporada, int numCapitulo, float cargo) {
 		setFechaVisualizado(fechaVisualizado);

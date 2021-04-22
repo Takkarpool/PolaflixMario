@@ -19,6 +19,8 @@ public class Temporada  implements Comparable<Temporada>{
 	@OneToMany
 	public List<Capitulo> capitulos;
 	
+	public Temporada() {}
+	
 	public Temporada(int numTemporada, List<Capitulo> capitulos) {
 		setNumTemporada(numTemporada);
 		setCapitulos(capitulos);

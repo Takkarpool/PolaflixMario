@@ -1,24 +1,28 @@
 package es.unican.alumnos.mario.domainModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class RepertorioPersonal {
+	
+	@Id
+	protected int id;
 	@OneToMany
 	public List<SerieEmpezada> seriesEmpezadas;
 	@OneToMany
 	public List<SerieEmpezada> seriesFinalizadas;
 	@OneToMany
 	public List<Serie> seriesPendientes;
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne
 	public Usuario usuario;
+	
+	public RepertorioPersonal() {}
 	
 	public RepertorioPersonal(Usuario usuario) {
 		
@@ -129,30 +133,6 @@ public class RepertorioPersonal {
 		}
 		
 		return false;
-		
-	}
-	
-	public List<Serie> verSeriesOrdenadas(char letraInicial){
-		List<Serie> seriesLetra = new LinkedList<Serie>();
-		for(Serie s: usuario.getSeriesNoMarcadas()) {
-			if (s.getNombreSerie().charAt(0) == letraInicial) {
-				seriesLetra.add(s);
-			}
-		}
-		
-		Collections.sort(seriesLetra);
-		return seriesLetra;
-		
-	}
-	
-	public Serie buscarSerie(String nombreSerie){
-		for(Serie s: usuario.getSeriesNoMarcadas()) {
-			if (s.getNombreSerie().equals(nombreSerie)) {
-				return s;
-			}
-		}
-		
-		return null;
 		
 	}
 	

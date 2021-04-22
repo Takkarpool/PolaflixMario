@@ -8,7 +8,6 @@ public class PolaflixMarioApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PolaflixMarioApplication.class, args);
-		System.out.print("Hola Mundo");
 	}
 
 }

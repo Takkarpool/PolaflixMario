@@ -19,22 +19,18 @@ public class Usuario {
 	public float cuotaFija;
 	@OneToMany(mappedBy="usuario")
 	public List<Cargo> cargos;
-	@OneToOne
+	@OneToOne(mappedBy="usuario")
 	public RepertorioPersonal repertorioUsuario;
-	@OneToMany
-	public List<Serie> seriesNoMarcadas;
+
+	public Usuario() {}
 	
-	
-	
-	public Usuario(String nombre, String contraseña, String cuentaBancaria, float cuotaFija,
-			List<Usuario> amigos, List<Serie> seriesNoMarcadas) {
+	public Usuario(String nombre, String contraseña, String cuentaBancaria, float cuotaFija) {
 
 		setNombre(nombre);
 		setContraseña(contraseña);
 		setCuentaBancaria(cuentaBancaria);
 		setCuotaFija(cuotaFija);
 		setRepertorioUsuario(new RepertorioPersonal(this));
-		setSeriesNoMarcadas(seriesNoMarcadas);
 	}
 	
 	
@@ -55,12 +51,6 @@ public class Usuario {
 	}
 	public void setRepertorioUsuario(RepertorioPersonal repertorioUsuario) {
 		this.repertorioUsuario = repertorioUsuario;
-	}
-	public List<Serie> getSeriesNoMarcadas() {
-		return seriesNoMarcadas;
-	}
-	public void setSeriesNoMarcadas(List<Serie> seriesNoMarcadas) {
-		this.seriesNoMarcadas = seriesNoMarcadas;
 	}
 	public String getNombre() {
 		return nombre;

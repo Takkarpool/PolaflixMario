@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -22,14 +23,17 @@ public class Serie implements Comparable<Serie>{
 	public String nombreSerie;
 	public String sinopsis;
 	@ElementCollection
+	@OrderColumn(name="creadores")
 	public Creador[] creadores;
 	@ElementCollection
+	@OrderColumn(name="actores")
 	public Actor[] actores;
 	@OneToMany
 	public List<Temporada> temporadas;
 	@Embedded
 	public Categoria categoria;
 	
+	public Serie() {}
 	
 	public Serie(String nombreSerie, String sinopsis, Creador[] creadores, Actor[] actores,
 			List<Temporada> temporadas, Categoria categoria) {
