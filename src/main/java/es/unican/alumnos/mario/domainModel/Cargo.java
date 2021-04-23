@@ -1,12 +1,12 @@
 package es.unican.alumnos.mario.domainModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -18,7 +18,7 @@ public class Cargo {
 	@Id
 	@GeneratedValue
 	protected int id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	public Usuario usuario;
 	public double cuotaFinal;
 	public Date fechaCargo;
@@ -26,6 +26,13 @@ public class Cargo {
 	@OrderColumn(name="listaCapitulosVistos")
 	public List<CapituloCargo>listaCapitulosVistos;
 	
+	public Cargo() {}
+	
+	public Cargo(Usuario usuario, Date fechaCargo) {
+		setUsuario(usuario);
+		setFechaCargo(fechaCargo);
+		setListaCapitulosVistos(new ArrayList<CapituloCargo>());
+	}
 	
 	public Usuario getUsuario() {
 		return usuario;

@@ -4,6 +4,7 @@ package es.unican.alumnos.mario.domainModel;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class Temporada  implements Comparable<Temporada>{
 	@GeneratedValue
 	protected int id;
 	public int numTemporada;
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<Capitulo> capitulos;
 	
 	public Temporada() {}

@@ -1,9 +1,11 @@
 package es.unican.alumnos.mario.domainModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -17,9 +19,9 @@ public class Usuario {
 	public String contraseña;
 	public String cuentaBancaria;
 	public float cuotaFija;
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="usuario",cascade = CascadeType.ALL)
 	public List<Cargo> cargos;
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", cascade = CascadeType.ALL)
 	public RepertorioPersonal repertorioUsuario;
 
 	public Usuario() {}
@@ -31,6 +33,8 @@ public class Usuario {
 		setCuentaBancaria(cuentaBancaria);
 		setCuotaFija(cuotaFija);
 		setRepertorioUsuario(new RepertorioPersonal(this));
+		setCargos(new ArrayList<Cargo>());
+		cargos.add(new Cargo(this, new Date(System.currentTimeMillis())));
 	}
 	
 	
@@ -72,6 +76,7 @@ public class Usuario {
 	}
 	
 	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {
+		
 		cargos.get(cargos.size()-1).anhadirCargo(serie, temporada, capitulo);
 	}
 	
@@ -119,6 +124,9 @@ public class Usuario {
 		return true;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 	
 }

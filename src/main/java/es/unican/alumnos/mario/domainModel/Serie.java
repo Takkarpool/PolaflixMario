@@ -3,14 +3,15 @@ package es.unican.alumnos.mario.domainModel;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 
 @Entity
@@ -28,9 +29,9 @@ public class Serie implements Comparable<Serie>{
 	@ElementCollection
 	@OrderColumn(name="actores")
 	public Actor[] actores;
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	public List<Temporada> temporadas;
-	@Embedded
+	@OneToOne(cascade=CascadeType.ALL)
 	public Categoria categoria;
 	
 	public Serie() {}
@@ -116,6 +117,11 @@ public class Serie implements Comparable<Serie>{
 	@Override
 	public int compareTo(Serie o) {
 		return nombreSerie.compareTo(o.getNombreSerie());
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombreSerie;
 	}
 	
 }

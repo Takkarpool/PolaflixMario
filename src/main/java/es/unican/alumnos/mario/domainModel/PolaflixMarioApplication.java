@@ -3,6 +3,8 @@ package es.unican.alumnos.mario.domainModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,11 +18,11 @@ import es.unican.mario.repositories.UsuarioRepository;
 @EnableJpaRepositories("es.unican.mario.repositories")
 public class PolaflixMarioApplication {
 
+	private static final Logger log = LoggerFactory.getLogger(PolaflixMarioApplication.class);
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PolaflixMarioApplication.class, args);
 	}
-
-
 
 	@Bean
 	public CommandLineRunner demo(UsuarioRepository usuarioRepositorio, SerieRepository serieRepositorio) {
@@ -79,8 +81,8 @@ public class PolaflixMarioApplication {
 			Categoria cat1 = new Silver();
 			Categoria cat2 = new Estandar();
 			
-			Serie s1 = new Serie("S1", "AAA", l_c_1, l_a_1, l_1,cat1);
-			Serie s2 = new Serie("S2", "BBB", l_c_2, l_a_2, l_2, cat2);
+			Serie s1 = new Serie("A3", "AAA", l_c_1, l_a_1, l_1, cat1);
+			Serie s2 = new Serie("A2", "BBB", l_c_2, l_a_2, l_2, cat2);
 
 			Usuario u1 = new Usuario("aaa", "AAA", "111", 0);
 			Usuario u2 = new Usuario("bbb", "BBB", "222", 0);
@@ -91,6 +93,21 @@ public class PolaflixMarioApplication {
 			serieRepositorio.save(s1);
 			serieRepositorio.save(s2);
 			
+			for (Usuario customer : usuarioRepositorio.findAll()) {
+		        log.info(customer.toString());
+		    }
+			
+			for (Serie serie : serieRepositorio.findAll()) {
+		        log.info(serie.toString());
+		    }
+			
+			for (Serie serie : serieRepositorio.findByLetraInicialYOrdenada('A')) {
+		        log.info(serie.toString());
+		    }
+			
+			for (Usuario customer : usuarioRepositorio.findByNombre("aaa")) {
+		        log.info(customer.toString());
+		    }
 		};
 	}
 }

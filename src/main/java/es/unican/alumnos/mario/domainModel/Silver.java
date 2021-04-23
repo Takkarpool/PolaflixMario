@@ -1,8 +1,8 @@
 package es.unican.alumnos.mario.domainModel;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
+@Entity
 public class Silver extends Categoria {
 
 	public Silver() {

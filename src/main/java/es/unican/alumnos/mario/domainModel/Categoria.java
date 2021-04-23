@@ -1,21 +1,29 @@
 package es.unican.alumnos.mario.domainModel;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 
-@Embeddable
-@MappedSuperclass
+@Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@AttributeOverrides({
-	  @AttributeOverride( name = "coste", column = @Column(name = "coste_por_categoria")),})
+
 public abstract class Categoria {
+	
+	@Id
+	@GeneratedValue
+	protected int id;
 	public float coste;
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public float getCoste() {
 		return coste;
 	}
