@@ -44,15 +44,21 @@ public class Temporada  implements Comparable<Temporada>{
 	public Capitulo verCapitulo(int numCapitulo) {
 		return capitulos.get(numCapitulo - 1);
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	@Override
 	public int compareTo(Temporada u) {
-	    if (this.numTemporada < 0 || u.getNumTemporada() < 0) {
+	    if (this.id < 0 || u.getId() < 0) {
 	      return 0;
 	    }
-	    if(this.numTemporada < u.getNumTemporada()) {
+	    if(this.id < u.getId()) {
 	    	return -1;
-	    }else if(this.numTemporada > u.getNumTemporada()) {
+	    }else if(this.id > u.getId()) {
 	    	return 1;
 	    }else{
 	    	return 0;

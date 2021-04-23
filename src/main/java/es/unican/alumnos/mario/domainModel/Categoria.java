@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
 @Embeddable
+@MappedSuperclass
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @AttributeOverrides({
 	  @AttributeOverride( name = "coste", column = @Column(name = "coste_por_categoria")),})

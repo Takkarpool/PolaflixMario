@@ -58,12 +58,12 @@ public class Capitulo implements Comparable<Capitulo>{
 	
 	@Override
 	public int compareTo(Capitulo u) {
-	    if (this.numero < 0 || u.numero < 0) {
+	    if (this.id < 0 || u.id < 0) {
 	      return 0;
 	    }
-	    if(this.numero < u.numero) {
+	    if(this.id < u.id) {
 	    	return -1;
-	    }else if(this.numero > u.numero) {
+	    }else if(this.id > u.id) {
 	    	return 1;
 	    }else{
 	    	return 0;
