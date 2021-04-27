@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 
@@ -31,5 +33,8 @@ public abstract class Categoria {
 	public void setCoste(float coste) {
 		this.coste = coste;
 	}
+	
+	@JsonValue
+	public abstract String tipo();
 }
 

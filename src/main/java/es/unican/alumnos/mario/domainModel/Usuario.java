@@ -11,17 +11,32 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class Usuario {
 
 	@Id
+	@JsonView({Views.DescripcionUsuario.class})
 	public String nombre;
+	
+	@JsonView({Views.DescripcionUsuario.class})
 	public String contraseña;
+	
+	@JsonView({Views.DescripcionUsuario.class})
 	public String cuentaBancaria;
+	
+	@JsonView({Views.DescripcionUsuario.class})
 	public float cuotaFija;
+	
 	@OneToMany(mappedBy="usuario",cascade = CascadeType.ALL)
+	@JsonView({Views.DescripcionUsuario.class})
 	public List<Cargo> cargos;
+	
 	@OneToOne(mappedBy="usuario", cascade = CascadeType.ALL)
+	@JsonView({Views.DescripcionUsuario.class})
 	public RepertorioPersonal repertorioUsuario;
 
 	public Usuario() {}

@@ -2,10 +2,18 @@ package es.unican.alumnos.mario.domainModel;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class SerieEmpezada extends Serie{
 
+
+	@JsonView({Views.DescripcionSerie.class})
 	public int ultimoCapituloVisto;
+	
+	@JsonView({Views.DescripcionSerie.class})
 	public int ultimaTemporadaVista;
 	
 	public SerieEmpezada() {}

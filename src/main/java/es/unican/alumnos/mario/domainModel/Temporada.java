@@ -10,13 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class Temporada  implements Comparable<Temporada>{
 
 	@Id
 	@GeneratedValue
+	@JsonView({Views.DescripcionSerie.class})
 	protected int id;
+	
+	@JsonView({Views.DescripcionSerie.class})
 	public int numTemporada;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Capitulo> capitulos;
 	

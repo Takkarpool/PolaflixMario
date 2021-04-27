@@ -9,4 +9,7 @@ public class Gold extends Categoria {
 		this.coste = (float) 1.5;
 	}
 	
+	public String tipo() {
+		return "Gold";
+	}
 }

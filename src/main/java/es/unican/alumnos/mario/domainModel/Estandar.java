@@ -9,4 +9,8 @@ public class Estandar extends Categoria {
 		this.coste = (float) 0.5;
 	}
 	
+	public String tipo() {
+		return "Estandar";
+	}
+	
 }

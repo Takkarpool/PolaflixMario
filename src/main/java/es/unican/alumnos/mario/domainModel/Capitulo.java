@@ -5,15 +5,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class Capitulo implements Comparable<Capitulo>{
 
 	@Id
 	@GeneratedValue
+	@JsonView({Views.DescripcionSerie.class})
 	protected int id;
+
+	@JsonView({Views.DescripcionSerie.class})
 	public int numero;
+
+	@JsonView({Views.DescripcionSerie.class})
 	public String titulo;
+
+	@JsonView({Views.DescripcionSerie.class})
 	public String descripcion;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@Embedded
 	public Video videoCapitulo;
 	

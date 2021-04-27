@@ -8,17 +8,31 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class RepertorioPersonal {
 	
 	@Id
+	@JsonView({Views.DescripcionUsuario.class})
 	protected int id;
+	
+	@JsonView({Views.DescripcionUsuario.class})
 	@OneToMany
 	public List<SerieEmpezada> seriesEmpezadas;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	@OneToMany
 	public List<SerieEmpezada> seriesFinalizadas;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	@OneToMany
 	public List<Serie> seriesPendientes;
+
+	@JsonIgnore
 	@OneToOne
 	public Usuario usuario;
 	

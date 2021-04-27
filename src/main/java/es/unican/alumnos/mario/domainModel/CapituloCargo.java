@@ -4,13 +4,27 @@ import java.util.Date;
 
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;;
+
 @Embeddable
 public class CapituloCargo {
 
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public Date fechaVisualizado;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public String nombreSerie;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public int numTemporada;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public int numCapitulo;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public float cargo;
 
 	public CapituloCargo() {}

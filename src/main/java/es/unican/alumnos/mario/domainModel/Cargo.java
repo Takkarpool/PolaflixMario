@@ -12,16 +12,30 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 public class Cargo {
 
 	@Id
 	@GeneratedValue
+	@JsonView({Views.DescripcionUsuario.class})
 	protected int id;
+	
+	@JsonIgnore
 	@ManyToOne
 	public Usuario usuario;
+	
+	@JsonView({Views.DescripcionUsuario.class})
 	public double cuotaFinal;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	public Date fechaCargo;
+
+	@JsonView({Views.DescripcionUsuario.class})
 	@ElementCollection
 	@OrderColumn(name="listaCapitulosVistos")
 	public List<CapituloCargo>listaCapitulosVistos;

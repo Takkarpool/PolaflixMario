@@ -14,24 +14,43 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.alumnos.mario.services.api.*;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Serie implements Comparable<Serie>{
 
 	@Id
 	@GeneratedValue
+	@JsonView({Views.DescripcionSerie.class})
 	protected int idSerie;
+	
+	@JsonView({Views.DescripcionSerie.class})
 	public String nombreSerie;
+	
+	@JsonView({Views.DescripcionSerie.class})
 	public String sinopsis;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@ElementCollection
 	@OrderColumn(name="creadores")
 	public Creador[] creadores;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@ElementCollection
 	@OrderColumn(name="actores")
 	public Actor[] actores;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Temporada> temporadas;
+
+	@JsonView({Views.DescripcionSerie.class})
 	@OneToOne(cascade=CascadeType.ALL)
+	@JsonUnwrapped()
 	public Categoria categoria;
 	
 	public Serie() {}
