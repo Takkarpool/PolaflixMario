@@ -14,19 +14,19 @@ public class Capitulo implements Comparable<Capitulo>{
 
 	@Id
 	@GeneratedValue
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	protected int id;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public int numero;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public String titulo;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public String descripcion;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@Embedded
 	public Video videoCapitulo;
 	

@@ -3,7 +3,9 @@ package es.unican.alumnos.mario.domainModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -17,19 +19,20 @@ import es.unican.alumnos.mario.services.api.*;
 public class RepertorioPersonal {
 	
 	@Id
+	@GeneratedValue
 	@JsonView({Views.DescripcionUsuario.class})
 	protected int id;
 	
 	@JsonView({Views.DescripcionUsuario.class})
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<SerieEmpezada> seriesEmpezadas;
 
 	@JsonView({Views.DescripcionUsuario.class})
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<SerieEmpezada> seriesFinalizadas;
 
 	@JsonView({Views.DescripcionUsuario.class})
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	public List<Serie> seriesPendientes;
 
 	@JsonIgnore
@@ -71,33 +74,29 @@ public class RepertorioPersonal {
 		this.seriesPendientes = seriesPendientes;
 	}
 	
-	public Capitulo verCapitulo(Serie serie, Temporada temporada, int numCapitulo) {
+	public boolean verCapitulo(Serie serie, Temporada temporada, Capitulo capitulo) {
 		
 		for(SerieEmpezada s : this.seriesEmpezadas) {
 			if(s.getIdSerie() == serie.getIdSerie()){
-				Capitulo capituloVer = s.verCapitulo(temporada, numCapitulo);
-				chequearFinalSerie(s, temporada, capituloVer);
-				return capituloVer;
-				
+				chequearFinalSerie(s, temporada, capitulo);
+				return true;
 			}
 		}
 		
 		for(SerieEmpezada s : this.seriesFinalizadas) {
 			if(s.getIdSerie() == serie.getIdSerie()){
-				Capitulo capituloVer = s.verCapitulo(temporada, numCapitulo);
-				usuario.anhadirCapituloVisto(s, s.getTemporadas().get(temporada.getNumTemporada()), capituloVer);
-				return capituloVer;
+				usuario.anhadirCapituloVisto(s, s.getTemporadas().get(temporada.getNumTemporada()), capitulo);
+				return true;
 			}
 		}
 		
 		for(Serie s : this.seriesPendientes) {
 			if(s.getIdSerie() == serie.getIdSerie()){
-				SerieEmpezada serieEmpezada = new SerieEmpezada(s, temporada.getNumTemporada(), numCapitulo);
+				SerieEmpezada serieEmpezada = new SerieEmpezada(s, temporada.getNumTemporada(), capitulo.getNumero());
 				seriesEmpezadas.add(serieEmpezada);
 				seriesPendientes.remove(s);
-				Capitulo capituloVer = serieEmpezada.verCapitulo(temporada, numCapitulo);
-				chequearFinalSerie(serieEmpezada, temporada, capituloVer);			
-				return capituloVer;
+				chequearFinalSerie(serieEmpezada, temporada, capitulo);			
+				return true;
 			}
 		}
 		
@@ -134,8 +133,12 @@ public class RepertorioPersonal {
 		return null;
 	}
 	
-	public void agregarSerie(Serie serie) {
+	public boolean agregarSerie(Serie serie) {
+		if (seriesPendientes.contains(serie) || seriesEmpezadas.contains(serie) || seriesFinalizadas.contains(serie)) {
+			return false;
+		}
 		seriesPendientes.add(serie);
+		return true;
 	}
 	
 	public boolean capituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {

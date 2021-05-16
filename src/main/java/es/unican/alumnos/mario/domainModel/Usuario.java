@@ -108,8 +108,8 @@ public class Usuario {
 		return null;
 	}
 	
-	public void agregarSerie(Serie serie) {
-		repertorioUsuario.agregarSerie(serie);
+	public boolean agregarSerie(Serie serie) {
+		return repertorioUsuario.agregarSerie(serie);
 	}
 
 

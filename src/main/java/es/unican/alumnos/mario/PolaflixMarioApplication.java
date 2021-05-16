@@ -1,4 +1,4 @@
-package es.unican.alumnos.mario.domainModel;
+package es.unican.alumnos.mario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import es.unican.alumnos.mario.domainModel.*;
 import es.unican.mario.repositories.SerieRepository;
 import es.unican.mario.repositories.UsuarioRepository;
 
 @SpringBootApplication
+@ComponentScan
 @EnableJpaRepositories("es.unican.mario.repositories")
 public class PolaflixMarioApplication {
 
@@ -85,9 +88,8 @@ public class PolaflixMarioApplication {
 			Serie s2 = new Serie("A2", "BBB", l_c_2, l_a_2, l_2, cat2);
 
 			Usuario u1 = new Usuario("aaa", "AAA", "111", 0);
-			Usuario u2 = new Usuario("bbb", "BBB", "222", 0);
-			
 			usuarioRepositorio.save(u1);
+			Usuario u2 = new Usuario("bbb", "BBB", "222", 0);
 			usuarioRepositorio.save(u2);
 			
 			serieRepositorio.save(s1);
@@ -104,10 +106,8 @@ public class PolaflixMarioApplication {
 			for (Serie serie : serieRepositorio.findByLetraInicialYOrdenada('A')) {
 		        log.info(serie.toString());
 		    }
-			
-			for (Usuario customer : usuarioRepositorio.findByNombre("aaa")) {
-		        log.info(customer.toString());
-		    }
+
+		    log.info(usuarioRepositorio.findByNombre("aaa").toString());
 		};
 	}
 }

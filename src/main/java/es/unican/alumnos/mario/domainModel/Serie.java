@@ -25,30 +25,30 @@ public class Serie implements Comparable<Serie>{
 
 	@Id
 	@GeneratedValue
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	protected int idSerie;
 	
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public String nombreSerie;
 	
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public String sinopsis;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@ElementCollection
 	@OrderColumn(name="creadores")
 	public Creador[] creadores;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@ElementCollection
 	@OrderColumn(name="actores")
 	public Actor[] actores;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Temporada> temporadas;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@OneToOne(cascade=CascadeType.ALL)
 	@JsonUnwrapped()
 	public Categoria categoria;

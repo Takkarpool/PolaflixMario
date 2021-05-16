@@ -19,13 +19,13 @@ public class Temporada  implements Comparable<Temporada>{
 
 	@Id
 	@GeneratedValue
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	protected int id;
 	
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public int numTemporada;
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Capitulo> capitulos;
 	

@@ -10,10 +10,10 @@ import es.unican.alumnos.mario.services.api.*;
 public class SerieEmpezada extends Serie{
 
 
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public int ultimoCapituloVisto;
 	
-	@JsonView({Views.DescripcionSerie.class})
+	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public int ultimaTemporadaVista;
 	
 	public SerieEmpezada() {}
