@@ -8,8 +8,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
@@ -20,7 +18,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import es.unican.alumnos.mario.services.api.*;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Serie implements Comparable<Serie>{
 
 	@Id
@@ -37,12 +34,12 @@ public class Serie implements Comparable<Serie>{
 	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@ElementCollection
 	@OrderColumn(name="creadores")
-	public Creador[] creadores;
+	public List<Creador> creadores;
 
 	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@ElementCollection
 	@OrderColumn(name="actores")
-	public Actor[] actores;
+	public List<Actor> actores;
 
 	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	@OneToMany(cascade=CascadeType.ALL)
@@ -55,7 +52,7 @@ public class Serie implements Comparable<Serie>{
 	
 	public Serie() {}
 	
-	public Serie(String nombreSerie, String sinopsis, Creador[] creadores, Actor[] actores,
+	public Serie(String nombreSerie, String sinopsis, List<Creador> creadores, List<Actor> actores,
 			List<Temporada> temporadas, Categoria categoria) {
 		setNombreSerie(nombreSerie);
 		setSinopsis(sinopsis);
@@ -97,16 +94,16 @@ public class Serie implements Comparable<Serie>{
 	}
 	
 	
-	public Creador[] getCreadores() {
+	public List<Creador> getCreadores() {
 		return creadores;
 	}
-	public void setCreadores(Creador[] creadores) {
+	public void setCreadores(List<Creador> creadores) {
 		this.creadores = creadores;
 	}
-	public Actor[] getActores() {
+	public List<Actor> getActores() {
 		return actores;
 	}
-	public void setActores(Actor[] actores) {
+	public void setActores(List<Actor> actores) {
 		this.actores = actores;
 	}
 	public Temporada mostrarTemporada(int numTemporada) {

@@ -23,7 +23,7 @@ public class Usuario {
 	public String nombre;
 	
 	@JsonView({Views.DescripcionUsuario.class})
-	public String contraseña;
+	public String contrasena;
 	
 	@JsonView({Views.DescripcionUsuario.class})
 	public String cuentaBancaria;
@@ -41,10 +41,10 @@ public class Usuario {
 
 	public Usuario() {}
 	
-	public Usuario(String nombre, String contraseña, String cuentaBancaria, float cuotaFija) {
+	public Usuario(String nombre, String contrasena, String cuentaBancaria, float cuotaFija) {
 
 		setNombre(nombre);
-		setContraseña(contraseña);
+		setcontrasena(contrasena);
 		setCuentaBancaria(cuentaBancaria);
 		setCuotaFija(cuotaFija);
 		setRepertorioUsuario(new RepertorioPersonal(this));
@@ -77,11 +77,11 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getcontrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setcontrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	public String getCuentaBancaria() {
 		return cuentaBancaria;

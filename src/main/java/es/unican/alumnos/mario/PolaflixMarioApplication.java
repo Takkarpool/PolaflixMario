@@ -2,7 +2,6 @@ package es.unican.alumnos.mario;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -76,10 +75,20 @@ public class PolaflixMarioApplication {
 			Actor a3 = new Actor("CCC", "ccc");
 			Actor a4 = new Actor("DDD", "ddd");
 			
-			Creador[] l_c_1 = {c1,c2};
-			Creador[] l_c_2 = {c3,c4};
-			Actor[] l_a_1 = {a1,a2};
-			Actor[] l_a_2 = {a3,a4};
+			List<Creador> l_c_1 = new ArrayList<>();
+			List<Creador> l_c_2 = new ArrayList<>();
+			l_c_1.add(c1);
+			l_c_1.add(c2);
+			l_c_2.add(c3);
+			l_c_2.add(c4);
+			
+			List<Actor> l_a_1 = new ArrayList<>();
+			List<Actor> l_a_2 = new ArrayList<>();
+			l_a_1.add(a1);
+			l_a_1.add(a2);
+			l_a_2.add(a3);
+			l_a_2.add(a4);
+			
 			
 			Categoria cat1 = new Silver();
 			Categoria cat2 = new Estandar();
@@ -107,7 +116,8 @@ public class PolaflixMarioApplication {
 		        log.info(serie.toString());
 		    }
 
-		    log.info(usuarioRepositorio.findByNombre("aaa").toString());
+		    
+		    
 		};
 	}
 }

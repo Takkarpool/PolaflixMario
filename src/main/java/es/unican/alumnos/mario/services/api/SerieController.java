@@ -8,24 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.annotation.JsonView;
-
 import es.unican.alumnos.mario.domainModel.Serie;
-import es.unican.alumnos.mario.services.SeriesMng;
+import es.unican.mario.repositories.SerieRepository;
 
 @RestController
 @RequestMapping("/series")
 public class SerieController {
 
 	@Autowired
-	SeriesMng seriesvs;
+	SerieRepository sr;
 
 	@GetMapping
 	@JsonView(Views.DescripcionSerie.class)
 	public ResponseEntity<List<Serie>> getViajes() {
 		
-		return ResponseEntity.ok(seriesvs.findAll());
+		return ResponseEntity.ok(sr.findAll());
 		
 	}
 	
@@ -33,7 +31,7 @@ public class SerieController {
 	@JsonView(Views.DescripcionSerie.class)
 	public ResponseEntity<List<Serie>> getViaje(@PathVariable String nombreSerie) {
 		
-		return ResponseEntity.ok(seriesvs.findByNombreSerie(nombreSerie)); 
+		return ResponseEntity.ok(sr.findByNombreSerie(nombreSerie)); 
 		
 	}
 	
