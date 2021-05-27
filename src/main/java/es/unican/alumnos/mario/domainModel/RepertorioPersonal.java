@@ -113,6 +113,25 @@ public class RepertorioPersonal {
 	
 	
 	public boolean agregarSerie(Serie serie) {
+		
+		for(SerieEmpezada s : this.seriesEmpezadas) {
+			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
+				return false;
+			}
+		}
+		
+		for(SerieEmpezada s : this.seriesFinalizadas) {
+			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
+				return false;
+			}
+		}
+		
+		for(Serie s : this.seriesPendientes) {
+			if(s.getIdSerie() == serie.getIdSerie()){
+				return false;
+			}
+		}
+		
 		seriesPendientes.add(serie);
 		return true;
 	}
