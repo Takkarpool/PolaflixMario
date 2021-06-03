@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import es.unican.alumnos.mario.domainModel.Serie;
 import es.unican.mario.repositories.SerieRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/series")
 public class SerieController {
 
@@ -21,7 +23,7 @@ public class SerieController {
 
 	@GetMapping
 	@JsonView(Views.DescripcionSerie.class)
-	public ResponseEntity<List<Serie>> getViajes() {
+	public ResponseEntity<List<Serie>> getSeries() {
 		
 		return ResponseEntity.ok(sr.findAll());
 		
@@ -29,7 +31,7 @@ public class SerieController {
 	
 	@GetMapping(value = "/{nombreSerie}")
 	@JsonView(Views.DescripcionSerie.class)
-	public ResponseEntity<List<Serie>> getViaje(@PathVariable String nombreSerie) {
+	public ResponseEntity<List<Serie>> getSerie(@PathVariable String nombreSerie) {
 		
 		return ResponseEntity.ok(sr.findByNombreSerie(nombreSerie)); 
 		
