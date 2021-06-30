@@ -108,6 +108,12 @@ public class RepertorioPersonal {
 			seriesFinalizadas.add(serie);
 			seriesEmpezadas.remove(serie);
 		}
+		if(serie.getUltimaTemporadaVista() < temporada.getNumTemporada() || 
+				( serie.getUltimaTemporadaVista() == temporada.getNumTemporada() && 
+				serie.getUltimoCapituloVisto() < capitulo.getNumero())) {
+			serie.setUltimaTemporadaVista(temporada.getNumTemporada());
+			serie.setUltimoCapituloVisto(capitulo.getNumero());
+		}
 		usuario.anhadirCapituloVisto(serie.getSerie(), temporada, capitulo);
 	}
 	
