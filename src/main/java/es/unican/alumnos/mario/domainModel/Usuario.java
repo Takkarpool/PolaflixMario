@@ -90,9 +90,14 @@ public class Usuario {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 	
-	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo) {
-		
-		cargos.get(cargos.size()-1).anhadirCargo(serie, temporada, capitulo);
+	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo, Date fechaCargo) {
+		Cargo c  = verCargo(fechaCargo);
+		if (c == null) {
+			cargos.add(new Cargo(this, fechaCargo));
+			cargos.get(cargos.size()-1).anhadirCargo(serie, temporada, capitulo);
+		}else {
+			c.anhadirCargo(serie, temporada, capitulo);
+		}
 	}
 	
 	public Cargo verCargo(Date fechaCargo) {

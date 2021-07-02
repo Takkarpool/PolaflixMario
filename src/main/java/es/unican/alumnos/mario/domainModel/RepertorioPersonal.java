@@ -1,6 +1,7 @@
 package es.unican.alumnos.mario.domainModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -85,7 +86,7 @@ public class RepertorioPersonal {
 		
 		for(SerieEmpezada s : this.seriesFinalizadas) {
 			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
-				usuario.anhadirCapituloVisto(s.getSerie(), s.getSerie().getTemporadas().get(temporada.getNumTemporada()), capitulo);
+				usuario.anhadirCapituloVisto(serie, temporada, capitulo, new Date(System.currentTimeMillis()));
 				return true;
 			}
 		}
@@ -114,7 +115,7 @@ public class RepertorioPersonal {
 			serie.setUltimaTemporadaVista(temporada.getNumTemporada());
 			serie.setUltimoCapituloVisto(capitulo.getNumero());
 		}
-		usuario.anhadirCapituloVisto(serie.getSerie(), temporada, capitulo);
+		usuario.anhadirCapituloVisto(serie.getSerie(), temporada, capitulo, new Date(System.currentTimeMillis()));
 	}
 	
 	
