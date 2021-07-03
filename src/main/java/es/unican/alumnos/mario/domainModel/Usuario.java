@@ -49,7 +49,6 @@ public class Usuario {
 		setCuotaFija(cuotaFija);
 		setRepertorioUsuario(new RepertorioPersonal(this));
 		setCargos(new ArrayList<Cargo>());
-		cargos.add(new Cargo(this, new Date(System.currentTimeMillis())));
 	}
 	
 	

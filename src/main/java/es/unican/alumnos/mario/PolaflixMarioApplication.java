@@ -1,6 +1,8 @@
 package es.unican.alumnos.mario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,6 +99,14 @@ public class PolaflixMarioApplication {
 			Serie s2 = new Serie("A2", "BBB", l_c_2, l_a_2, l_2, cat2);
 
 			Usuario u1 = new Usuario("aaa", "AAA", "111", 0);
+			Date date = new Date();
+	        Calendar calendar = Calendar.getInstance();
+	        calendar.setTime(date);
+	        calendar.set(Calendar.MONTH, calendar.get (Calendar.MONTH)-1);
+	        date = calendar.getTime();
+	        u1.anhadirCapituloVisto(s2, t_2_2, cap2_2_2, date);
+	        u1.anhadirCapituloVisto(s2, t_2_2, cap2_2_2, new Date(System.currentTimeMillis()));
+	        u1.anhadirCapituloVisto(s1, t_1_2, cap1_2_2, new Date(System.currentTimeMillis()));
 			usuarioRepositorio.save(u1);
 			Usuario u2 = new Usuario("bbb", "BBB", "222", 0);
 			usuarioRepositorio.save(u2);

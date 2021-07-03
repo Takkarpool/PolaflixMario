@@ -5,12 +5,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderColumn;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -37,7 +41,14 @@ public class Cargo {
 
 	@JsonView({Views.DescripcionUsuario.class})
 	@ElementCollection
-	@OrderColumn(name="listaCapitulosVistos")
+	@CollectionTable(name = "listaCapitulosVistos", joinColumns = @JoinColumn(name = "cargo_id"))
+	@AttributeOverrides({
+        @AttributeOverride(name = "fechaVisualizado", column = @Column(name = "fechaVisualizado")),
+        @AttributeOverride(name = "nombreSerie", column = @Column(name = "nombreSerie")),
+        @AttributeOverride(name = "numTemporada", column = @Column(name = "numTemporada")),
+        @AttributeOverride(name = "numCapitulo", column = @Column(name = "numCapitulo")),
+        @AttributeOverride(name = "cargo", column = @Column(name = "cargo")),
+	})
 	public List<CapituloCargo>listaCapitulosVistos;
 	
 	public Cargo() {}
