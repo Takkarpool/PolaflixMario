@@ -1,0 +1,55 @@
+<div class="month">
+  <ul>
+    <li class="prev"> <input class="button" type="submit" value="<<" (click)="restaTemporada()"> </li>
+    <li>
+      {{ pendiente ? serie.nombreSerie + " - Temporada " + serie.temporadas[temporada].numTemporada : serie.serie.nombreSerie + " - Temporada " + serie.serie.temporadas[temporada].numTemporada }}<br>
+    </li>
+    <li class="next"> <input class="button" type="submit" value=">>" (click)="sumaTemporada()"> </li>
+
+  </ul>
+</div>
+
+<div *ngIf="pendiente == true; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+
+  <div>
+    <label class="estandar">{{serie.categoria}}</label>
+  </div>
+<div>
+  <table class="conjunto">
+  <tbody>
+          <tr *ngFor="let capitulo of serie.temporadas[temporada].capitulos">
+            <td class="palabras">{{ capitulo.titulo }}</td>
+            <td><input class="button" type="submit" value="Ver Capitulo" (click)="verCapitulo(capitulo.numero)"></td>
+            <td class="palabras"> Pendiente </td>
+          </tr>
+  </tbody>
+
+  </table>
+</div>
+</ng-template>
+
+<ng-template #elseBlock>
+  <div>
+    <label class="estandar">{{serie.serie.categoria}}</label>
+  </div>
+  <table class="conjunto">
+  <tbody>
+          <tr *ngFor="let capitulo of serie.serie.temporadas[temporada].capitulos">
+            <td class="palabras">{{ capitulo.titulo }}</td>
+            <td><input class="button" type="submit" value="Ver Capitulo" (click)="verCapitulo(capitulo.numero)"></td>
+            <div *ngIf="serie.ultimaTemporadaVista > serie.serie.temporadas[temporada].numTemporada ||
+				(serie.ultimaTemporadaVista == serie.serie.temporadas[temporada].numTemporada &&
+				serie.ultimoCapituloVisto >= capitulo.numero); then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <td class="palabras"> Visto </td>
+          </ng-template>
+          <ng-template #elseBlock>
+            <td class="palabras"> Pendiente </td>
+          </ng-template>
+          </tr>
+  </tbody>
+
+  </table>
+
+</ng-template>

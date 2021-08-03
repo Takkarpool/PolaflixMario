@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+.labelsseries{
+  background-color: #F5CBA7;
+  padding: 1%;
+  text-decoration:none;
+  margin:20px;
+  border-radius: 80% 70% 80% 35%;
+  cursor: pointer;
+}
+
+.inputs{
+
+    padding: 10px;
+    font-size: 13px;
+    color: #ffffff;
+    background-color: #9B581D;
+    border-radius: 3px;
+    border: 1px solid #F5CBA7;
+    cursor: pointer;
+}
+
+.tablita{
+  background-color: #F5CBA7;
+  padding: 1%;
+  text-decoration:none;
+  margin:20px;
+  border-radius: 50%;
+  padding-left: 40%;
+  font-weight: 100;
+  font-size: 18px;
+}

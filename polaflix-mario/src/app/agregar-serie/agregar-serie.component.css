@@ -1,0 +1,77 @@
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+#logo{
+  vertical-align:middle;
+  padding-left:20px;
+  padding-top:20px;
+  padding-bottom:20px;
+  float:left;
+}
+
+#perfil{
+  position: relative;
+  display: inline;
+  float: right;
+  top:20px;
+}
+
+.topnav h1 {
+  display: inline;
+  position: relative;
+  color: #f2f2f2;
+  width: 200px;
+  top:50px;
+  left: 500px;
+  font-size: 32px;
+  padding-top: 25px;
+}
+
+.AlphabetNav {
+  margin-top: 30px;
+  margin-left: 70px;
+  position: relative;
+  width: 70%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-flow: wrap row;
+  padding: .5rem;
+  background: white;
+}
+
+.AlphabetNav a {
+  display: flex;
+  justify-content: center;
+  padding: .5em;
+  border-radius: 8px;
+  font-size: 1.2em;
+  line-height: 1;
+  font-weight: 500;
+  text-decoration: none;
+  color: darkgray;
+}
+
+.AlphabetNav a:hover {
+  background: #ddd;
+  color: #444;
+}
+
+.AlphabetNav .active {
+  background: #f46353;
+  color: white;
+}
+
+#gsearch{
+  position:relative;
+  margin-bottom: 1.5rem;
+}
+
+.buscador{
+  margin-left: 70px;
+}
+#series{
+  margin-left: 70px;
+}

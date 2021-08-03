@@ -1,0 +1,81 @@
+ul {list-style-type: none;}
+
+.button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #9B581D;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.month {
+  margin-top: 40px;
+  margin-left: 22%;
+  padding-top: 30px;
+  padding-bottom: 60px;
+  padding-left: 35px;
+  padding-right: 35px;
+  width: 50%;
+  background-color: #F2BF91;
+  text-align: center;
+
+}
+
+.month ul {
+  margin: 0;
+  padding: 0;
+}
+
+.month ul li {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.month .prev {
+  display: inline-block;
+  float: left;
+  padding-top: 10px;
+}
+
+.month .next {
+  display: inline-block;
+  float: right;
+  padding-top: 10px;
+}
+.estandar{
+  margin-top: 2%;
+  display: inline-block;
+  margin-left: 48%;
+  font-size: 20px;
+}
+
+.conjunto{
+  margin-left: 43%;
+  margin-top: 30px;
+}
+
+.palabras {
+  background-color: #F5CBA7;
+  padding: -5%;
+  text-decoration:none;
+  border-radius: 80% 70% 80% 35%;
+}
+tr{
+  margin-bottom: 5%;
+}

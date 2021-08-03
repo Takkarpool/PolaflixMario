@@ -1,0 +1,32 @@
+<div class="month">
+  <ul>
+    <li class="prev"> <input class="button" type="submit" value="<<" (click)="bajarCargo()" > </li>
+    <li class="next"> <input class="button" type="submit" value=">>" (click)="subirCargo()"> </li>
+    <li>
+      {{usuario.cargos![cargo-1].fechaCargo | date:'MMMM yyyy' }}
+    </li>
+  </ul>
+</div>
+
+
+<div class="conjunto11">
+  <table class="conjunto">
+  <tbody>
+          <tr>
+            <td class="estandar"> Fecha </td>
+            <td class="estandar"> Serie </td>
+            <td class="estandar"> Episodio </td>
+            <td class="estandar"> Precio </td>
+          </tr>
+          <tr *ngFor="let cargoLista of usuario.cargos![cargo-1].listaCapitulosVistos">
+            <td class="estandar">{{ cargoLista.fechaVisualizado | date:' d/MM/yyyy' }}</td>
+            <td class="estandar">{{ cargoLista.nombreSerie }}</td>
+            <td class="estandar">{{ cargoLista.numTemporada+'x'+cargoLista.numCapitulo }}</td>
+            <td class="estandar">{{ cargoLista.cargo + '€'}}</td>
+          </tr>
+  </tbody>
+
+  </table>
+
+<label class="conjunto2"> Total </label> <label class="estandar"> {{usuario.cargos![cargo-1].cuotaFinal + '€'}}</label>
+</div>

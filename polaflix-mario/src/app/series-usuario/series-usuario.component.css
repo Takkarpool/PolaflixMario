@@ -1,0 +1,30 @@
+
+td{
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+a{
+    text-decoration:none;
+    color:white;
+}
+
+.bordes{
+  background-color: #F5CBA7;
+  border: 1px solid grey;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.series{
+  text-align: center;
+}
+
+table{
+  margin-top: 3%;
+  margin-left: 5%
+}
+
+.contenedor{
+  width: 95%;
+}

@@ -98,6 +98,7 @@ public class Cargo {
 		if (!encontrado) {
 			listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
 					capitulo.getNumero(), serie.getCategoria().getCoste()));
+			this.cuotaFinal += serie.getCategoria().getCoste();
 		}
 		
 	}

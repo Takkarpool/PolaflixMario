@@ -1,0 +1,28 @@
+<div class="contenedor">
+<table class="contenedor">
+<tbody>
+
+  <nav class="series">
+        <tr >Series Pendientes</tr>
+        <div class="bordes">
+        <tr  *ngFor="let serie of usuario.repertorioUsuario?.seriesPendientes">
+          <td routerLink="/verSerie/{{serie.idSerie}}"><a >{{ serie.nombreSerie }}</a></td>
+        </tr>
+        </div>
+        <tr>Series Empezadas</tr>
+        <div class="bordes">
+        <tr *ngFor="let serie of usuario.repertorioUsuario?.seriesEmpezadas">
+        <td routerLink="/verSerie/{{serie.serie.idSerie}}"><a >{{ serie.serie.nombreSerie }}</a></td>
+      </tr>
+      </div>
+        <tr>Series Finalizadas</tr>
+        <div class="bordes">
+        <tr *ngFor="let serie of usuario.repertorioUsuario?.seriesFinalizadas">
+          <td routerLink="/verSerie/{{serie.serie.idSerie}}"><a >{{ serie.serie.nombreSerie }}</a></td>
+        </tr>
+        </div>
+      </nav>
+</tbody>
+
+</table>
+</div>

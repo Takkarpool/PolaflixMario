@@ -1,0 +1,60 @@
+.topnav {
+  background-color: #F5CBA7;
+  overflow: hidden;
+    border-radius: 45px 60% 70% 45%;
+}
+
+#logo{
+  left: 200px;
+  position: relative;
+  display: inline;
+  padding-top:20px;
+  padding-bottom:20px;
+  float:left;
+  border-radius: 50px 50% 50% 50%;
+  margin: 5px;
+  display:block;
+}
+
+
+#perfil{
+  position: relative;
+  display: inline;
+  float: right;
+  top:20px;
+  left: -200px;
+  display:block;
+}
+
+.topnav h1 {
+  display: inline;
+  position: relative;
+  color: #f2f2f2;
+  width: 200px;
+  top:50px;
+  left: 500px;
+  font-size: 32px;
+  padding-top: 25px;
+  padding-left:25px;
+}
+
+.topnav{
+  margin-bottom: 20px;
+}
+
+.cabecera {
+
+  padding-right: 50px;
+  padding-left: 20px;
+  text-align:center;
+
+}
+
+#menu{
+background-color: #F5CBA7;
+padding: 1%;
+text-decoration:none;
+margin:20px;
+border-radius: 50% 50% 50% 50%;
+color:white;
+}
