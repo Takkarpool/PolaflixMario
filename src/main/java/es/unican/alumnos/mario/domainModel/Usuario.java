@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.alumnos.mario.services.api.*;
@@ -22,17 +23,17 @@ public class Usuario {
 	@JsonView({Views.DescripcionUsuario.class})
 	public String nombre;
 	
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonIgnore
 	public String contrasena;
 	
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonIgnore
 	public String cuentaBancaria;
 	
 	@JsonView({Views.DescripcionUsuario.class})
 	public float cuotaFija;
 	
 	@OneToMany(mappedBy="usuario",cascade = CascadeType.ALL)
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public List<Cargo> cargos;
 	
 	@OneToOne(mappedBy="usuario", cascade = CascadeType.ALL)
@@ -41,12 +42,16 @@ public class Usuario {
 
 	public Usuario() {}
 	
-	public Usuario(String nombre, String contrasena, String cuentaBancaria, float cuotaFija) {
+	public Usuario(String nombre, String contrasena, String cuentaBancaria, boolean cuotaFija) {
 
 		setNombre(nombre);
 		setcontrasena(contrasena);
 		setCuentaBancaria(cuentaBancaria);
-		setCuotaFija(cuotaFija);
+		if (cuotaFija) {
+			setCuotaFija(20);
+		}else {
+			setCuotaFija(0);
+		}
 		setRepertorioUsuario(new RepertorioPersonal(this));
 		setCargos(new ArrayList<Cargo>());
 	}
@@ -89,7 +94,7 @@ public class Usuario {
 		this.cuentaBancaria = cuentaBancaria;
 	}
 	
-	public void anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo, Date fechaCargo) {
+	public boolean anhadirCapituloVisto(Serie serie, Temporada temporada, Capitulo capitulo, Date fechaCargo) {
 		Cargo c  = verCargo(fechaCargo);
 		if (c == null) {
 			cargos.add(new Cargo(this, fechaCargo));
@@ -97,6 +102,7 @@ public class Usuario {
 		}else {
 			c.anhadirCargo(serie, temporada, capitulo);
 		}
+		return repertorioUsuario.verCapitulo(serie, temporada, capitulo);
 	}
 	
 	public Cargo verCargo(Date fechaCargo) {

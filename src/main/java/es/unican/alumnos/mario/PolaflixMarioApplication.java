@@ -98,7 +98,12 @@ public class PolaflixMarioApplication {
 			Serie s1 = new Serie("A3", "AAA", l_c_1, l_a_1, l_1, cat1);
 			Serie s2 = new Serie("A2", "BBB", l_c_2, l_a_2, l_2, cat2);
 
-			Usuario u1 = new Usuario("aaa", "AAA", "111", 0);
+			serieRepositorio.save(s1);
+			serieRepositorio.save(s2);
+			
+			Usuario u1 = new Usuario("aaa", "AAA", "111", false);
+			u1.agregarSerie(s2);
+			u1.agregarSerie(s1);
 			Date date = new Date();
 	        Calendar calendar = Calendar.getInstance();
 	        calendar.setTime(date);
@@ -108,11 +113,9 @@ public class PolaflixMarioApplication {
 	        u1.anhadirCapituloVisto(s2, t_2_2, cap2_2_2, new Date(System.currentTimeMillis()));
 	        u1.anhadirCapituloVisto(s1, t_1_2, cap1_2_2, new Date(System.currentTimeMillis()));
 			usuarioRepositorio.save(u1);
-			Usuario u2 = new Usuario("bbb", "BBB", "222", 0);
+			Usuario u2 = new Usuario("bbb", "BBB", "222", true);
 			usuarioRepositorio.save(u2);
 			
-			serieRepositorio.save(s1);
-			serieRepositorio.save(s2);
 			
 			for (Usuario customer : usuarioRepositorio.findAll()) {
 		        log.info(customer.toString());

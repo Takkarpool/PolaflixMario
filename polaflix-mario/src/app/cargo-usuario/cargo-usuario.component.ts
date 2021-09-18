@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from  '../usuario-service.service';
 import { Usuario } from '../usuario';
+import { ChangeDetectorRef } from '@angular/core';
+import { Cargo } from '../cargo';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-cargo-usuario',
@@ -9,20 +12,30 @@ import { Usuario } from '../usuario';
 })
 export class CargoUsuarioComponent implements OnInit {
 
-  usuario: Partial<Usuario>;
-  cargo: number = 0;
+  public cargos : Cargo[] = [];
+  public cargo: number = 0;
+  public usuario : any;
 
-  constructor(public usuarioService: UsuarioService) {
-      this.usuario = {};
+  constructor(public usuarioService: UsuarioService, public cRef: ChangeDetectorRef) {
+    this.usuario = this.usuarioService.usuario;
+
   }
 
   ngOnInit() {
-    this.usuario = this.usuarioService.usuario;
-    this.cargo = this.usuario.cargos!.length;
+    var self = this;
+    this.usuarioService.verCargos(this.usuario.nombre).subscribe(data => {
+      self.changeArray(data, self);}, error => {console.log(error);
+        alert("Error: " + error.status + "\n" + error.message)})
+  }
+
+  changeArray(items:any, self:any) : void{
+    self.cargos = items;
+    self.cargo = self.cargos.length;
+    self.cRef.detectChanges();
   }
 
   subirCargo(){
-    if (this.cargo < this.usuario.cargos!.length){
+    if (this.cargo < this.cargos!.length){
       this.cargo += 1;
     }
   }

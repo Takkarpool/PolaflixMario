@@ -16,4 +16,8 @@ export class SerieService {
   public findAll(): Observable<Serie[]> {
     return this.http.get<Serie[]>(this.seriesUrl);
   }
+
+  public findbyId(idSerie:number): Observable<Serie> {
+    return this.http.get<Serie>(this.seriesUrl+'/'+idSerie);
+  }
 }

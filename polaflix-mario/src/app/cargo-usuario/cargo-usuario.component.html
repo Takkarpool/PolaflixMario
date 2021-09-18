@@ -3,7 +3,7 @@
     <li class="prev"> <input class="button" type="submit" value="<<" (click)="bajarCargo()" > </li>
     <li class="next"> <input class="button" type="submit" value=">>" (click)="subirCargo()"> </li>
     <li>
-      {{usuario.cargos![cargo-1].fechaCargo | date:'MMMM yyyy' }}
+      {{cargos![cargo-1]?.fechaCargo | date:'MMMM yyyy' }}
     </li>
   </ul>
 </div>
@@ -18,7 +18,7 @@
             <td class="estandar"> Episodio </td>
             <td class="estandar"> Precio </td>
           </tr>
-          <tr *ngFor="let cargoLista of usuario.cargos![cargo-1].listaCapitulosVistos">
+          <tr *ngFor="let cargoLista of cargos![cargo-1]?.listaCapitulosVistos">
             <td class="estandar">{{ cargoLista.fechaVisualizado | date:' d/MM/yyyy' }}</td>
             <td class="estandar">{{ cargoLista.nombreSerie }}</td>
             <td class="estandar">{{ cargoLista.numTemporada+'x'+cargoLista.numCapitulo }}</td>
@@ -27,6 +27,14 @@
   </tbody>
 
   </table>
+<div *ngIf="usuario.cuotaFija!=0.0;else NocuotaFija">
 
-<label class="conjunto2"> Total </label> <label class="estandar"> {{usuario.cargos![cargo-1].cuotaFinal + '€'}}</label>
+  <label class="conjunto2"> Cuota Fija </label> <label class="estandar"> {{usuario.cuotaFija + '€'}}</label>
+
+</div>
+
+<ng-template #NocuotaFija>
+      <label class="conjunto2"> Total </label> <label class="estandar"> {{cargos![cargo-1]?.cuotaFinal + '€'}}</label>
+</ng-template>
+
 </div>

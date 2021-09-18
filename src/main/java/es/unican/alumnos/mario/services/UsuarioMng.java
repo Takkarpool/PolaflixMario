@@ -1,5 +1,7 @@
 package es.unican.alumnos.mario.services;
 
+import java.util.Date;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.transaction.Transactional;
@@ -42,7 +44,7 @@ public class UsuarioMng {
 		Serie s = sr.findById(serieId).orElseThrow(ResourceNotFound::new);
 		Temporada t = s.mostrarTemporada(temporadaNum);
 		Capitulo c = t.verCapitulo(capituloNum);
-		return (u.getRepertorioUsuario().verCapitulo(s,t,c))?u:null;
+		return (u.anhadirCapituloVisto(s, t, c, new Date(System.currentTimeMillis())))?u:null;
 	}
 	
 }

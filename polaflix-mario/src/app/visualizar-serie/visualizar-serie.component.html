@@ -2,7 +2,8 @@
   <ul>
     <li class="prev"> <input class="button" type="submit" value="<<" (click)="restaTemporada()"> </li>
     <li>
-      {{ pendiente ? serie.nombreSerie + " - Temporada " + serie.temporadas[temporada].numTemporada : serie.serie.nombreSerie + " - Temporada " + serie.serie.temporadas[temporada].numTemporada }}<br>
+      {{ pendiente ? serie.nombreSerie + " - Temporada " + (temporada+1) :
+      serie.nombreSerie + " - Temporada " + (temporada+1) }}<br>
     </li>
     <li class="next"> <input class="button" type="submit" value=">>" (click)="sumaTemporada()"> </li>
 
@@ -31,16 +32,16 @@
 
 <ng-template #elseBlock>
   <div>
-    <label class="estandar">{{serie.serie.categoria}}</label>
+    <label class="estandar">{{serieEmpezada.serie.categoria}}</label>
   </div>
   <table class="conjunto">
   <tbody>
-          <tr *ngFor="let capitulo of serie.serie.temporadas[temporada].capitulos">
+          <tr *ngFor="let capitulo of serie.temporadas[temporada].capitulos">
             <td class="palabras">{{ capitulo.titulo }}</td>
             <td><input class="button" type="submit" value="Ver Capitulo" (click)="verCapitulo(capitulo.numero)"></td>
-            <div *ngIf="serie.ultimaTemporadaVista > serie.serie.temporadas[temporada].numTemporada ||
-				(serie.ultimaTemporadaVista == serie.serie.temporadas[temporada].numTemporada &&
-				serie.ultimoCapituloVisto >= capitulo.numero); then thenBlock else elseBlock"></div>
+            <div *ngIf="serieEmpezada.ultimaTemporadaVista > serie.temporadas[temporada].numTemporada ||
+				(serieEmpezada.ultimaTemporadaVista == serie.temporadas[temporada].numTemporada &&
+				serieEmpezada.ultimoCapituloVisto >= capitulo.numero); then thenBlock else elseBlock"></div>
           <ng-template #thenBlock>
             <td class="palabras"> Visto </td>
           </ng-template>

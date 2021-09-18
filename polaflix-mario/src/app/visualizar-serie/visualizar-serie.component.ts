@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario-service.service';
+import { SerieService } from '../serie-service.service';
 import { Serie } from '../serie';
 import { SerieEmpezada } from '../serieEmpezada';
 import { Usuario } from '../usuario';
+import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-visualizar-serie',
@@ -17,19 +20,26 @@ export class VisualizarSerieComponent implements OnInit {
   public pendiente: boolean = false;
   public serie: any;
   public temporada : any;
+  public serieEmpezada : any;
 
-  constructor(public usuarioService: UsuarioService) {
+  constructor(public usuarioService: UsuarioService, public serieService: SerieService) {
     this.idSerie = window.location.href.split("/")[4];
     this.usuario = {};
+    this.serie = {};
+    this.serieEmpezada = {};
   }
 
-  ngOnInit(): void {
-    this.usuario = this.usuarioService.usuario;
+  ngOnInit() {
+    this.serieService.findbyId(this.idSerie).subscribe(data => {
+      this.serie = data;
+    }, error => {console.log(error);
+      alert("Error: " + error.status + "\n" + error.message)});
     var self = this;
+    console.log(self.serie);
+    this.usuario = this.usuarioService.usuario;
     this.usuario.repertorioUsuario.seriesPendientes.forEach( function(valor:Serie, indice: number, array: Array<Serie>) {
       if(valor.idSerie == self.idSerie){
         self.pendiente = true;
-        self.serie = valor;
         self.temporada = 0;
       }
     });
@@ -41,19 +51,20 @@ export class VisualizarSerieComponent implements OnInit {
   buscarSerie(self: any){
     this.usuario.repertorioUsuario.seriesEmpezadas.forEach( function(valor:SerieEmpezada, indice: number, array: Array<SerieEmpezada>) {
       if(valor.serie.idSerie == self.idSerie){
-        self.serie = valor;
         self.pendiente = false;
-        self.temporada = valor.ultimaTemporadaVista-1;
+        self.serieEmpezada = valor;
+        self.temporada = self.serieEmpezada.ultimaTemporadaVista-1;
       }
     });
 
-    this.usuario.repertorioUsuario.seriesFinalizadas.forEach( function(valor:SerieEmpezada, indice: number, array: Array<SerieEmpezada>) {
+    this.usuario.repertorioUsuario.seriesFinalizadas.forEach(function(valor:SerieEmpezada, indice: number, array: Array<SerieEmpezada>) {
       if(valor.serie.idSerie == self.idSerie){
-        self.serie = valor;
         self.pendiente = false;
-        self.temporada = valor.ultimaTemporadaVista-1;
+        self.serieEmpezada = valor;
+        self.temporada = self.serieEmpezada.ultimaTemporadaVista-1;
       }
     });
+
   }
 
   async verCapitulo(numCapitulo:number){
@@ -62,11 +73,11 @@ export class VisualizarSerieComponent implements OnInit {
       self.usuario = await this.usuarioService.verCapitulo(this.usuario.nombre, this.serie.idSerie,
         this.serie.temporadas[this.temporada].numTemporada, numCapitulo).toPromise();
     }else{
-      self.usuario = await this.usuarioService.verCapitulo(this.usuario.nombre, this.serie.serie.idSerie,
-        this.serie.serie.temporadas[this.temporada].numTemporada, numCapitulo).toPromise();
+      self.usuario = await this.usuarioService.verCapitulo(this.usuario.nombre, this.serie.idSerie,
+        this.serie.temporadas[this.temporada].numTemporada, numCapitulo).toPromise();
 
     }
-    this.buscarSerie(this);
+    this.buscarSerie(self);
   }
 
   ngOnDestroy() {
@@ -80,14 +91,8 @@ export class VisualizarSerieComponent implements OnInit {
   }
 
   sumaTemporada(){
-    if(this.pendiente){
-      if(this.serie.temporadas.length - 1 > this.temporada){
-          this.temporada += 1;
-      }
-    }else{
-      if(this.serie.serie.temporadas.length -1 > this.temporada){
-          this.temporada += 1;
-      }
+    if(this.serie.temporadas.length - 1 > this.temporada){
+        this.temporada += 1;
     }
   }
 

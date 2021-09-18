@@ -9,10 +9,10 @@ import es.unican.alumnos.mario.services.api.*;
 @Embeddable
 public class Actor {
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	public String nombre;
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	public String apellido;
 	
 	public Actor() {}

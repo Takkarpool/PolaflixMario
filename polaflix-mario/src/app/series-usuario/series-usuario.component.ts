@@ -18,7 +18,8 @@ export class SeriesUsuarioComponent implements OnInit, OnDestroy {
     ngOnInit() {
       this.usuarioService.find().subscribe(data => {
         this.usuario = data ;
-      });
+      }, error => {console.log(error);
+        alert("Error: " + error.status + "\n" + error.message)});
     }
 
     ngOnDestroy() {

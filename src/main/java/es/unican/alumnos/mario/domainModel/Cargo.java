@@ -26,39 +26,39 @@ public class Cargo {
 
 	@Id
 	@GeneratedValue
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	protected int id;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	public Usuario usuario;
-	
-	@JsonView({Views.DescripcionUsuario.class})
+
+	@JsonView({Views.DescripcionCargos.class})
 	public double cuotaFinal;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public Date fechaCargo;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	@ElementCollection
 	@CollectionTable(name = "listaCapitulosVistos", joinColumns = @JoinColumn(name = "cargo_id"))
 	@AttributeOverrides({
-        @AttributeOverride(name = "fechaVisualizado", column = @Column(name = "fechaVisualizado")),
-        @AttributeOverride(name = "nombreSerie", column = @Column(name = "nombreSerie")),
-        @AttributeOverride(name = "numTemporada", column = @Column(name = "numTemporada")),
-        @AttributeOverride(name = "numCapitulo", column = @Column(name = "numCapitulo")),
-        @AttributeOverride(name = "cargo", column = @Column(name = "cargo")),
+		@AttributeOverride(name = "fechaVisualizado", column = @Column(name = "fechaVisualizado")),
+		@AttributeOverride(name = "nombreSerie", column = @Column(name = "nombreSerie")),
+		@AttributeOverride(name = "numTemporada", column = @Column(name = "numTemporada")),
+		@AttributeOverride(name = "numCapitulo", column = @Column(name = "numCapitulo")),
+		@AttributeOverride(name = "cargo", column = @Column(name = "cargo")),
 	})
 	public List<CapituloCargo>listaCapitulosVistos;
-	
+
 	public Cargo() {}
-	
+
 	public Cargo(Usuario usuario, Date fechaCargo) {
 		setUsuario(usuario);
 		setFechaCargo(fechaCargo);
 		setListaCapitulosVistos(new ArrayList<CapituloCargo>());
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -83,26 +83,15 @@ public class Cargo {
 	public void setListaCapitulosVistos(List<CapituloCargo> listaCapitulosVistos) {
 		this.listaCapitulosVistos = listaCapitulosVistos;
 	}	
-	
-	
+
+
 	public void anhadirCargo(Serie serie, Temporada temporada, Capitulo capitulo) {
-		boolean encontrado = false;
-		for(CapituloCargo c : listaCapitulosVistos) {
-			if (c.getNombreSerie().equals(serie.getNombreSerie()) 
-					&& c.getNumCapitulo() == capitulo.numero 
-					&& c.getNumTemporada() == temporada.getNumTemporada()) {
-				encontrado = true;
-				break;
-			}
-		}
-		if (!encontrado) {
-			listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
-					capitulo.getNumero(), serie.getCategoria().getCoste()));
-			this.cuotaFinal += serie.getCategoria().getCoste();
-		}
-		
+		listaCapitulosVistos.add(new CapituloCargo(new Date(), serie.getNombreSerie(), temporada.getNumTemporada(),
+				capitulo.getNumero(), serie.getCategoria().getCoste()));
+		this.cuotaFinal += serie.getCategoria().getCoste();
+
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -138,10 +127,10 @@ public class Cargo {
 				return false;
 		}
 		return true;
-			
+
 	}
 
-	
-	
-	
+
+
+
 }

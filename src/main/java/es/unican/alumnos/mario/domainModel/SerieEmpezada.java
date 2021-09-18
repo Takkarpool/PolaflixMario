@@ -16,16 +16,16 @@ public class SerieEmpezada{
 
 	@Id
 	@GeneratedValue
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class,Views.DescripcionUsuario.class})
 	protected int idSerieEmpezada;
 	
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class,Views.DescripcionUsuario.class})
 	public int ultimoCapituloVisto;
 	
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class,Views.DescripcionUsuario.class})
 	public int ultimaTemporadaVista;
 	
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class,Views.DescripcionUsuario.class})
 	@OneToOne(cascade = CascadeType.ALL)
 	public Serie serie;
 
@@ -95,6 +95,7 @@ public class SerieEmpezada{
 		return true;
 	}
 	
-	
-	
+	public int getIdSerie() {
+		return this.serie.getIdSerie();
+	}
 }

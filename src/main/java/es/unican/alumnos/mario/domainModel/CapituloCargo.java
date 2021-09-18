@@ -12,19 +12,19 @@ import es.unican.alumnos.mario.services.api.*;;
 public class CapituloCargo {
 
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public Date fechaVisualizado;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public String nombreSerie;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public int numTemporada;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public int numCapitulo;
 
-	@JsonView({Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionCargos.class})
 	public float cargo;
 
 	public CapituloCargo() {}

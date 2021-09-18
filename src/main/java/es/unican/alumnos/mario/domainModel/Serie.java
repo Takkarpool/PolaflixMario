@@ -28,24 +28,24 @@ public class Serie implements Comparable<Serie>{
 	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
 	public String nombreSerie;
 	
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	public String sinopsis;
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	@ElementCollection
 	@OrderColumn(name="creadores")
 	public List<Creador> creadores;
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	@ElementCollection
 	@OrderColumn(name="actores")
 	public List<Actor> actores;
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	@OneToMany(cascade=CascadeType.ALL)
 	public List<Temporada> temporadas;
 
-	@JsonView({Views.DescripcionSerie.class, Views.DescripcionUsuario.class})
+	@JsonView({Views.DescripcionSerie.class})
 	@OneToOne(cascade=CascadeType.ALL)
 	@JsonUnwrapped()
 	public Categoria categoria;

@@ -24,7 +24,8 @@ export class AgregarSerieComponent implements OnInit {
     this.usuario = this.usuarioService.usuario;
     this.serieService.findAll().subscribe(data => {
       this.series = data;
-    });
+    }, error => {console.log(error);
+      alert("Error: " + error.status + "\n" + error.message)});
   }
 
   ngOnDestroy() {

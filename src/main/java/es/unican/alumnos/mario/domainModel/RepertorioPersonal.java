@@ -1,54 +1,57 @@
 package es.unican.alumnos.mario.domainModel;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.alumnos.mario.services.api.*;
 
 @Entity
 public class RepertorioPersonal {
-	
+
 	@Id
 	@GeneratedValue
 	@JsonView({Views.DescripcionUsuario.class})
 	protected int id;
 	
 	@JsonView({Views.DescripcionUsuario.class})
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<SerieEmpezada> seriesEmpezadas;
+	@OneToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	public Map<Integer, SerieEmpezada> seriesEmpezadas;
 
 	@JsonView({Views.DescripcionUsuario.class})
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<SerieEmpezada> seriesFinalizadas;
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+	public Map<Integer,SerieEmpezada> seriesFinalizadas;
 
 	@JsonView({Views.DescripcionUsuario.class})
-	@ManyToMany(cascade = CascadeType.ALL)
-	public List<Serie> seriesPendientes;
+	@OneToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE})
+	public Map<Integer,Serie> seriesPendientes;
 
 	@JsonIgnore
 	@OneToOne
 	public Usuario usuario;
-	
+
 	public RepertorioPersonal() {}
-	
+
 	public RepertorioPersonal(Usuario usuario) {
-		
-		setSeriesEmpezadas(new ArrayList<SerieEmpezada>());
-		setSeriesFinalizadas(new ArrayList<SerieEmpezada>());
-		setSeriesPendientes(new ArrayList<Serie>());
+
+		setSeriesEmpezadas(new HashMap<Integer,SerieEmpezada>());
+		setSeriesFinalizadas(new HashMap<Integer,SerieEmpezada>());
+		setSeriesPendientes(new HashMap<Integer,Serie>());
 		setUsuario(usuario);
-		
+
 	}
 	public Usuario getUsuario() {
 		return usuario;
@@ -56,58 +59,96 @@ public class RepertorioPersonal {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public List<SerieEmpezada> getSeriesEmpezadas() {
+	
+	@JsonGetter("seriesEmpezadas")
+	public List<SerieEmpezada> getSeriesEmpezadasAsList() {
+		return seriesEmpezadas.values().stream().collect(Collectors.<SerieEmpezada>toList());
+	}
+	
+	@JsonGetter("seriesFinalizadas")
+	public List<SerieEmpezada> getSeriesFinalizadasAsList() {
+		return seriesFinalizadas.values().stream().collect(Collectors.<SerieEmpezada>toList());
+	}
+	
+	@JsonGetter("seriesPendientes")
+	public List<Serie> getSeriesPendientesAsList() {
+		return seriesPendientes.values().stream().collect(Collectors.<Serie>toList());
+	}
+	
+	@JsonSetter("seriesEmpezadas")
+	public void setSeriesEmpezadasAsList(List<SerieEmpezada> series) {
+		Map<Integer, SerieEmpezada> deserializedSerie = series.stream().collect(Collectors.toMap(SerieEmpezada::getIdSerie, SerieEmpezada -> SerieEmpezada));
+        this.seriesEmpezadas = deserializedSerie;
+	}
+	
+	@JsonSetter("seriesFinalizadas")
+	public void setSeriesFinalizadasAsList(List<SerieEmpezada> series) {
+		Map<Integer, SerieEmpezada> deserializedSerie = series.stream().collect(Collectors.toMap(SerieEmpezada::getIdSerie, SerieEmpezada -> SerieEmpezada));
+        this.seriesFinalizadas = deserializedSerie;
+	}
+	
+	@JsonSetter("seriesPendientes")
+	public void setSeriesPendientesAsList(List<Serie> series) {
+		Map<Integer, Serie> deserializedSerie = series.stream().collect(Collectors.toMap(Serie::getIdSerie, Serie -> Serie));
+        this.seriesPendientes = deserializedSerie;
+	}
+	
+	public Map<Integer, SerieEmpezada> getSeriesEmpezadas() {
 		return seriesEmpezadas;
 	}
-	public void setSeriesEmpezadas(List<SerieEmpezada> seriesEmpezadas) {
+
+	public void setSeriesEmpezadas(HashMap<Integer, SerieEmpezada> seriesEmpezadas) {
 		this.seriesEmpezadas = seriesEmpezadas;
 	}
-	public List<SerieEmpezada> getSeriesFinalizadas() {
+
+	public Map<Integer, SerieEmpezada> getSeriesFinalizadas() {
 		return seriesFinalizadas;
 	}
-	public void setSeriesFinalizadas(List<SerieEmpezada> seriesFinalizadas) {
+
+	public void setSeriesFinalizadas(HashMap<Integer, SerieEmpezada> seriesFinalizadas) {
 		this.seriesFinalizadas = seriesFinalizadas;
 	}
-	public List<Serie> getSeriesPendientes() {
+
+	public Map<Integer, Serie> getSeriesPendientes() {
 		return seriesPendientes;
 	}
-	public void setSeriesPendientes(List<Serie> seriesPendientes) {
+
+	public void setSeriesPendientes(HashMap<Integer, Serie> seriesPendientes) {
 		this.seriesPendientes = seriesPendientes;
 	}
-	
+
 	public boolean verCapitulo(Serie serie, Temporada temporada, Capitulo capitulo) {
-		
-		for(SerieEmpezada s : this.seriesEmpezadas) {
-			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
-				chequearFinalSerie(s, temporada, capitulo);
-				return true;
-			}
+
+
+		SerieEmpezada s = seriesEmpezadas.get(serie.getIdSerie());
+		if (s!=null) {
+			chequearFinalSerie(s, temporada, capitulo);
+			return true;
 		}
-		
-		for(SerieEmpezada s : this.seriesFinalizadas) {
-			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
-				usuario.anhadirCapituloVisto(serie, temporada, capitulo, new Date(System.currentTimeMillis()));
-				return true;
-			}
+
+		s = seriesFinalizadas.get(serie.getIdSerie());
+		if (s!=null) {
+			chequearFinalSerie(s, temporada, capitulo);
+			return true;
 		}
-		
-		for(Serie s : this.seriesPendientes) {
-			if(s.getIdSerie() == serie.getIdSerie()){
-				SerieEmpezada serieEmpezada = new SerieEmpezada(s, temporada.getNumTemporada(), capitulo.getNumero());
-				seriesEmpezadas.add(serieEmpezada);
-				seriesPendientes.remove(s);
-				chequearFinalSerie(serieEmpezada, temporada, capitulo);			
-				return true;
-			}
+
+		Serie se = seriesPendientes.get(serie.getIdSerie());
+		if (se!=null) {
+			SerieEmpezada serieEmpezada = new SerieEmpezada(se, temporada.getNumTemporada(), capitulo.getNumero());
+			seriesEmpezadas.put(serieEmpezada.getSerie().getIdSerie(),serieEmpezada);
+			seriesPendientes.remove(se.getIdSerie());
+			chequearFinalSerie(serieEmpezada, temporada, capitulo);			
+			return true;
 		}
-		
+
+
 		throw new RuntimeException("Ver capitulo de serie no seleccionada por el usuario");
 	}
-	
+
 	private void chequearFinalSerie(SerieEmpezada serie, Temporada temporada, Capitulo capitulo) {
 		if(serie.getSerie().getTemporadas().size() == temporada.getNumTemporada() && temporada.getCapitulos().size() == capitulo.getNumero()) {
-			seriesFinalizadas.add(serie);
-			seriesEmpezadas.remove(serie);
+			seriesFinalizadas.put(serie.getSerie().getIdSerie(),serie);
+			seriesEmpezadas.remove(serie.getSerie().getIdSerie());
 		}
 		if(serie.getUltimaTemporadaVista() < temporada.getNumTemporada() || 
 				( serie.getUltimaTemporadaVista() == temporada.getNumTemporada() && 
@@ -115,32 +156,28 @@ public class RepertorioPersonal {
 			serie.setUltimaTemporadaVista(temporada.getNumTemporada());
 			serie.setUltimoCapituloVisto(capitulo.getNumero());
 		}
-		usuario.anhadirCapituloVisto(serie.getSerie(), temporada, capitulo, new Date(System.currentTimeMillis()));
 	}
-	
-	
+
+
 	public boolean agregarSerie(Serie serie) {
-		
-		for(SerieEmpezada s : this.seriesEmpezadas) {
-			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
-				return false;
-			}
+
+		SerieEmpezada s = seriesEmpezadas.get(serie.getIdSerie());
+		if (s!=null) {
+			return false;
 		}
-		
-		for(SerieEmpezada s : this.seriesFinalizadas) {
-			if(s.getSerie().getIdSerie() == serie.getIdSerie()){
-				return false;
-			}
+
+		s = seriesFinalizadas.get(serie.getIdSerie());
+		if (s!=null) {
+			return false;
 		}
-		
-		for(Serie s : this.seriesPendientes) {
-			if(s.getIdSerie() == serie.getIdSerie()){
-				return false;
-			}
+
+		Serie se = seriesPendientes.get(serie.getIdSerie());
+		if (se!=null) {
+			return false;
 		}
-		
-		seriesPendientes.add(serie);
+
+		seriesPendientes.put(serie.getIdSerie(),serie);
 		return true;
 	}
-	
+
 }

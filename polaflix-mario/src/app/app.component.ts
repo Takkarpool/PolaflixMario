@@ -19,9 +19,8 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.usuarioService.find().subscribe(data => {
       this.usuario = data ;
-    });
+    }, error => {console.log(error);
+      alert("Error: " + error.status + "\n" + error.message)});
     ;
   }
-
-
 }

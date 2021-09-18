@@ -1,6 +1,7 @@
 package es.unican.alumnos.mario.services.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +30,20 @@ public class SerieController {
 		
 	}
 	
-	@GetMapping(value = "/{nombreSerie}")
+	@GetMapping(value = "/{idSerie}")
 	@JsonView(Views.DescripcionSerie.class)
-	public ResponseEntity<List<Serie>> getSerie(@PathVariable String nombreSerie) {
+	public ResponseEntity<Serie> getSerie(@PathVariable int idSerie) {
 		
-		return ResponseEntity.ok(sr.findByNombreSerie(nombreSerie)); 
+		Optional<Serie> s = sr.findByIdSerie(idSerie);
+		ResponseEntity<Serie> result;
+		
+		if (s.isPresent()) {
+			result = ResponseEntity.ok(s.get());
+		} else { 
+			result = ResponseEntity.notFound().build();
+		}
+		
+		return result;
 		
 	}
 	
